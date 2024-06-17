@@ -1,11 +1,11 @@
 <?php
 
-namespace VendorName\Skeleton\Settings;
+namespace Astrogoat\Monologues\Settings;
 
 use Helix\Lego\Settings\AppSettings;
 use Illuminate\Validation\Rule;
 
-class SkeletonSettings extends AppSettings
+class MonologuesSettings extends AppSettings
 {
     // public string $url; // Example, modify to fit your need.
 
@@ -16,11 +16,11 @@ class SkeletonSettings extends AppSettings
 
     public function description(): string
     {
-        return 'Interact with Skeleton.';
+        return 'Interact with Monologues.';
     }
 
     public static function group(): string
     {
-        return 'skeleton';
+        return 'monologues';
     }
 }

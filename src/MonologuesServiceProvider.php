@@ -1,19 +1,19 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Astrogoat\Monologues;
 
 use Helix\Lego\Apps\App;
 use Helix\Lego\Apps\AppPackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use VendorName\Skeleton\Settings\SkeletonSettings;
+use Astrogoat\Monologues\Settings\MonologuesSettings;
 
-class SkeletonServiceProvider extends AppPackageServiceProvider
+class MonologuesServiceProvider extends AppPackageServiceProvider
 {
     public function registerApp(App $app): App
     {
         return $app
-            ->name('skeleton')
-            ->settings(SkeletonSettings::class)
+            ->name('monologues')
+            ->settings(MonologuesSettings::class)
             ->migrations([
                 __DIR__ . '/../database/migrations',
                 __DIR__ . '/../database/migrations/settings',
@@ -24,6 +24,6 @@ class SkeletonServiceProvider extends AppPackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('skeleton')->hasConfigFile()->hasViews();
+        $package->name('monologues')->hasConfigFile()->hasViews();
     }
 }
