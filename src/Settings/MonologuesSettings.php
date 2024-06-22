@@ -11,7 +11,9 @@ class MonologuesSettings extends AppSettings
 
     public function rules(): array
     {
-        //        'url' => Rule::requiredIf($this->enabled === true), // Example, modify to fit your need.
+        return [
+//            'url' => Rule::requiredIf($this->enabled === true), // Example, modify to fit your need.
+        ];
     }
 
     public function description(): string
