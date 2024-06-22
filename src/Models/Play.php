@@ -2,13 +2,13 @@
 
 namespace Astrogoat\Monologues\Models;
 
+use Astrogoat\Monologues\Enums\TheatricalType;
 use Helix\Fabrick\Icon;
 use Helix\Lego\Models\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Astrogoat\Monologues\Enums\TheatricalType;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Play extends Model
 {
@@ -19,7 +19,7 @@ class Play extends Model
         'type' => TheatricalType::class,
     ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')

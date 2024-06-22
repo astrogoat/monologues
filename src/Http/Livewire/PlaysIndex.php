@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Http\Livewire;
 
+use Astrogoat\Monologues\Enums\TheatricalType;
 use Astrogoat\Monologues\Models\Play;
 use Helix\Lego\Http\Livewire\Models\Index;
-use Astrogoat\Monologues\Enums\TheatricalType;
 
 class PlaysIndex extends Index
 {

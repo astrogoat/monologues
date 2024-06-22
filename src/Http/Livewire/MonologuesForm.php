@@ -2,12 +2,12 @@
 
 namespace Astrogoat\Monologues\Http\Livewire;
 
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Astrogoat\Monologues\Enums\CharacterSex;
+use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Models\Play;
 use Helix\Lego\Http\Livewire\Models\Form;
-use Astrogoat\Monologues\Models\Monologue;
-use Astrogoat\Monologues\Enums\CharacterSex;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class MonologuesForm extends Form
 {
@@ -40,7 +40,7 @@ class MonologuesForm extends Form
         }
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'model.character' => 'required|string',
@@ -53,7 +53,7 @@ class MonologuesForm extends Form
         ];
     }
 
-    public function model() : string
+    public function model(): string
     {
         return Monologue::class;
     }

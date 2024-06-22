@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Http\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Models\Monologue;
 use Helix\Lego\Http\Livewire\Models\Index;
+use Illuminate\Database\Eloquent\Builder;
 
 class MonologuesIndex extends Index
 {
@@ -21,7 +21,7 @@ class MonologuesIndex extends Index
             'excerpt' => 'Excerpt',
             'playwright' => 'Playwright',
             'published_year' => 'Year',
-            'deleted_at' => 'Archived'
+            'deleted_at' => 'Archived',
         ];
     }
 

@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Tests;
 
+use Astrogoat\Monologues\MonologuesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Astrogoat\Monologues\MonologuesServiceProvider;
 
 class TestCase extends Orchestra
 {

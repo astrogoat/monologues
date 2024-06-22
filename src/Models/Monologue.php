@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Models;
 
+use Astrogoat\Monologues\Enums\CharacterSex;
 use Helix\Fabrick\Icon;
 use Helix\Lego\Models\Model;
-use Astrogoat\Monologues\Enums\CharacterSex;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Monologue extends Model

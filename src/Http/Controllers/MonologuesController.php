@@ -2,8 +2,8 @@
 
 namespace Astrogoat\Monologues\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Astrogoat\Monologues\Models\Monologue;
+use Illuminate\Http\Request;
 
 class MonologuesController
 {

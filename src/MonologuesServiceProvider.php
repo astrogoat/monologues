@@ -2,20 +2,20 @@
 
 namespace Astrogoat\Monologues;
 
-use Livewire\Livewire;
-use Helix\Fabrick\Icon;
-use Helix\Lego\Apps\App;
-use Helix\Lego\Menus\Menu;
-use Helix\Lego\Menus\Lego\Link;
-use Helix\Lego\Menus\Lego\Group;
-use Spatie\LaravelPackageTools\Package;
-use Astrogoat\Monologues\Models\Monologue;
-use Helix\Lego\Apps\AppPackageServiceProvider;
-use Astrogoat\Monologues\Http\Livewire\PlaysForm;
-use Astrogoat\Monologues\Http\Livewire\PlaysIndex;
-use Astrogoat\Monologues\Settings\MonologuesSettings;
 use Astrogoat\Monologues\Http\Livewire\MonologuesForm;
 use Astrogoat\Monologues\Http\Livewire\MonologuesIndex;
+use Astrogoat\Monologues\Http\Livewire\PlaysForm;
+use Astrogoat\Monologues\Http\Livewire\PlaysIndex;
+use Astrogoat\Monologues\Models\Monologue;
+use Astrogoat\Monologues\Settings\MonologuesSettings;
+use Helix\Fabrick\Icon;
+use Helix\Lego\Apps\App;
+use Helix\Lego\Apps\AppPackageServiceProvider;
+use Helix\Lego\Menus\Lego\Group;
+use Helix\Lego\Menus\Lego\Link;
+use Helix\Lego\Menus\Menu;
+use Livewire\Livewire;
+use Spatie\LaravelPackageTools\Package;
 
 class MonologuesServiceProvider extends AppPackageServiceProvider
 {
