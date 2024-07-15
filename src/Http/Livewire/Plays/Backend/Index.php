@@ -1,12 +1,12 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire;
+namespace Astrogoat\Monologues\Http\Livewire\Plays\Backend;
 
 use Astrogoat\Monologues\Models\Play;
-use Helix\Lego\Http\Livewire\Models\Index;
+use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
 use Astrogoat\Monologues\Enums\TheatricalType;
 
-class PlaysIndex extends Index
+class Index extends BaseIndex
 {
     public array $casts = [
         'type' => 'array',
@@ -41,7 +41,7 @@ class PlaysIndex extends Index
 
     public function render()
     {
-        return view('monologues::models.plays.index', [
+        return view('monologues::models.plays.backend.index', [
             'models' => $this->getModels(),
         ])->extends('lego::layouts.lego')->section('content');
     }

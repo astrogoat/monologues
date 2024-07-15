@@ -1,12 +1,12 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire;
+namespace Astrogoat\Monologues\Http\Livewire\Plays\Backend;
 
 use Helix\Lego\Rules\SlugRule;
 use Astrogoat\Monologues\Models\Play;
-use Helix\Lego\Http\Livewire\Models\Form;
+use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
 
-class PlaysForm extends Form
+class Form extends BaseForm
 {
     public function mount($play = null)
     {
@@ -32,6 +32,6 @@ class PlaysForm extends Form
 
     public function view(): string
     {
-        return 'monologues::models.plays.form';
+        return 'monologues::models.plays.backend.form';
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire;
+namespace Astrogoat\Monologues\Http\Livewire\Monologues\Backend;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Astrogoat\Monologues\Models\Play;
-use Helix\Lego\Http\Livewire\Models\Form;
+use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
 use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Enums\CharacterSex;
 
-class MonologuesForm extends Form
+class Form extends BaseForm
 {
     public Play $play;
 
@@ -77,6 +77,6 @@ class MonologuesForm extends Form
 
     public function view(): string
     {
-        return 'monologues::models.monologues.form';
+        return 'monologues::models.monologues.backend.form';
     }
 }

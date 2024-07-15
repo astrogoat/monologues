@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Astrogoat\Monologues\Http\Livewire\PlaysForm;
-use Astrogoat\Monologues\Http\Livewire\PlaysIndex;
-use Astrogoat\Monologues\Http\Livewire\MonologuesForm;
-use Astrogoat\Monologues\Http\Livewire\MonologuesIndex;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Backend\Form as MonologuesForm;
+use Astrogoat\Monologues\Http\Livewire\Plays\Backend\Form as PlaysForm;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Backend\Index as MonologuesIndex;
+use Astrogoat\Monologues\Http\Livewire\Plays\Backend\Index as PlaysIndex;
 
 Route::group([
     'as' => 'monologues.',

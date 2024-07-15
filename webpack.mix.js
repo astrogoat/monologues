@@ -19,6 +19,7 @@ const mix = require('laravel-mix');
  */
 
 mix
+    .postCss('resources/css/monologues.css', 'css', [require('tailwindcss')('tailwind.config.js')])
     .postCss('resources/css/monologues-backend.css', 'css', [require('tailwindcss')('tailwind.config.js')])
     // .js('resources/js/monologues.js', 'js')
     .version()

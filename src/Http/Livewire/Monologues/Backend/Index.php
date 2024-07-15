@@ -1,12 +1,12 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire;
+namespace Astrogoat\Monologues\Http\Livewire\Monologues\Backend;
 
 use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Models\Monologue;
-use Helix\Lego\Http\Livewire\Models\Index;
+use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
 
-class MonologuesIndex extends Index
+class Index extends BaseIndex
 {
     public function model(): string
     {
@@ -39,7 +39,7 @@ class MonologuesIndex extends Index
 
     public function render()
     {
-        return view('monologues::models.monologues.index', [
+        return view('monologues::models.monologues.backend.index', [
             'models' => $this->getModels(),
         ])->extends('lego::layouts.lego')->section('content');
     }
