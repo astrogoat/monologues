@@ -2,14 +2,14 @@
 
 namespace Astrogoat\Monologues\Settings;
 
-use Helix\Lego\Settings\AppSettings;
-use Illuminate\Validation\Rule;
 use Astrogoat\Cashier\Models\Price;
 use Astrogoat\Cashier\Models\Product;
+use Helix\Lego\Settings\AppSettings;
+use Illuminate\Validation\Rule;
 
 class MonologuesSettings extends AppSettings
 {
-     public string $primary_price_id;
+    public string $primary_price_id;
 
     public function rules(): array
     {
@@ -24,7 +24,7 @@ class MonologuesSettings extends AppSettings
             return [
                 $product->name => $product->prices->mapWithKeys(function (Price $price) {
                     return [$price->id => $price->name];
-                })
+                }),
             ];
         })->prepend(['' => '-- SELECT A PRICE --'], '-- SELECT A PRICE --')->toArray();
     }

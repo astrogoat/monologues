@@ -2,8 +2,8 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Monologues\Frontend;
 
-use Livewire\Component;
 use Astrogoat\Monologues\Models\Monologue;
+use Livewire\Component;
 
 class Show extends Component
 {
@@ -30,12 +30,12 @@ class Show extends Component
 
     public function hasPrevious(): bool
     {
-        return !! $this->getPrevious();
+        return ! ! $this->getPrevious();
     }
 
     public function hasNext(): bool
     {
-        return !! $this->getNext();
+        return ! ! $this->getNext();
     }
 
     public function previous()
@@ -60,10 +60,10 @@ class Show extends Component
         return $this->redirect(route('monologues.show', $next));
     }
 
-//    public function bookmark()
-//    {
-//
-//    }
+    //    public function bookmark()
+    //    {
+    //
+    //    }
 
     public function render()
     {

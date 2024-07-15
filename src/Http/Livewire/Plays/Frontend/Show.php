@@ -2,8 +2,8 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Plays\Frontend;
 
-use Livewire\Component;
 use Astrogoat\Monologues\Models\Play;
+use Livewire\Component;
 
 class Show extends Component
 {

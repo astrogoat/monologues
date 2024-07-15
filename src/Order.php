@@ -2,15 +2,15 @@
 
 namespace Astrogoat\Monologues;
 
-use Helix\Lego\Models\User;
-use Illuminate\Support\Collection;
 use Astrogoat\Cashier\Models\Price;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Enums\OrderStatus;
 use Astrogoat\Monologues\Scopes\CompletedScope;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Helix\Lego\Models\User;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 #[ScopedBy([CompletedScope::class])]
 class Order extends Model

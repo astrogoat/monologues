@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Plays\Backend;
 
-use Helix\Lego\Rules\SlugRule;
 use Astrogoat\Monologues\Models\Play;
 use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
+use Helix\Lego\Rules\SlugRule;
 
 class Form extends BaseForm
 {
@@ -13,7 +13,7 @@ class Form extends BaseForm
         $this->setModel($play);
     }
 
-    public function rules() : array
+    public function rules(): array
     {
         return [
             'model.title' => 'required',
@@ -25,7 +25,7 @@ class Form extends BaseForm
         ];
     }
 
-    public function model() : string
+    public function model(): string
     {
         return Play::class;
     }

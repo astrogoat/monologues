@@ -2,11 +2,11 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Monologues\Frontend;
 
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder;
-use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Enums\CharacterSex;
+use Astrogoat\Monologues\Models\Monologue;
 use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class Index extends BaseIndex
 {

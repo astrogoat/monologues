@@ -2,9 +2,9 @@
 
 namespace Astrogoat\Monologues\Http\Middleware;
 
+use Astrogoat\Monologues\Models\MonologueUser;
 use Closure;
 use Illuminate\Http\Request;
-use Astrogoat\Monologues\Models\MonologueUser;
 
 class HasDatabaseAccess
 {

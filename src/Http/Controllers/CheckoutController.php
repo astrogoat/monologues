@@ -2,14 +2,14 @@
 
 namespace Astrogoat\Monologues\Http\Controllers;
 
+use Astrogoat\Cashier\Models\BillableUser;
+use Astrogoat\Cashier\Models\Price;
+use Astrogoat\Monologues\Enums\OrderStatus;
+use Astrogoat\Monologues\Enums\Role;
+use Astrogoat\Monologues\Order;
+use Astrogoat\Monologues\Scopes\CompletedScope;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
-use Astrogoat\Monologues\Order;
-use Astrogoat\Cashier\Models\Price;
-use Astrogoat\Monologues\Enums\Role;
-use Astrogoat\Cashier\Models\BillableUser;
-use Astrogoat\Monologues\Enums\OrderStatus;
-use Astrogoat\Monologues\Scopes\CompletedScope;
 
 class CheckoutController
 {

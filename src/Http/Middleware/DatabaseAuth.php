@@ -2,8 +2,8 @@
 
 namespace Astrogoat\Monologues\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Http\Request;
 
 class DatabaseAuth extends Authenticate
 {

@@ -2,12 +2,11 @@
 
 namespace Astrogoat\Monologues\Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Astrogoat\Monologues\Models\Play;
+use Astrogoat\Monologues\Enums\CharacterSex;
 use Astrogoat\Monologues\Enums\TheatricalType;
 use Astrogoat\Monologues\Models\Monologue;
-use Astrogoat\Monologues\Enums\CharacterSex;
+use Astrogoat\Monologues\Models\Play;
+use Illuminate\Database\Seeder;
 
 class MonologuesSeeder extends Seeder
 {
@@ -23,7 +22,8 @@ class MonologuesSeeder extends Seeder
                 'playwright' => 'Adam Rapp',
                 'published_year' => '2006',
                 'type' => TheatricalType::DRAMA,
-            ]);
+            ]
+        );
 
         $theDevilsBetweenUs = Play::query()->firstOrCreate(
             ['title' => 'The Devils Between Us'],
@@ -31,8 +31,9 @@ class MonologuesSeeder extends Seeder
                 'playwright' => 'Sharifa Yasmin',
                 'published_year' => '2021',
                 'type' => TheatricalType::DRAMA,
-                'where_to_find' => 'PK; The Methuen Drama Book of Trans Plays'
-            ]);
+                'where_to_find' => 'PK; The Methuen Drama Book of Trans Plays',
+            ]
+        );
 
         $monologue = <<<TEXT
 Occaecat minim exercitation consectetur velit ipsum veniam non fugiat laborum nisi ut ut veniam. Nostrud enim reprehenderit voluptate voluptate fugiat aliqua ut do dolore. Proident excepteur excepteur id sunt fugiat nulla. Adipisicing dolor deserunt eu nostrud est incididunt reprehenderit. Veniam aute aute elit aliqua. Elit elit cupidatat est.

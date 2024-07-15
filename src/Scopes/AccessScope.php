@@ -3,9 +3,9 @@
 namespace Astrogoat\Monologues\Scopes;
 
 use Astrogoat\Monologues\Models\MonologueUser;
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 
 class AccessScope implements Scope
 {

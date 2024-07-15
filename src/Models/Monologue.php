@@ -2,14 +2,14 @@
 
 namespace Astrogoat\Monologues\Models;
 
-use Helix\Fabrick\Icon;
-use Helix\Lego\Models\User;
-use Helix\Lego\Models\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Enums\CharacterSex;
 use Astrogoat\Monologues\Scopes\AccessScope;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Helix\Fabrick\Icon;
+use Helix\Lego\Models\Model;
+use Helix\Lego\Models\User;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ScopedBy([AccessScope::class])]
 class Monologue extends Model
@@ -38,7 +38,7 @@ class Monologue extends Model
             $user = MonologueUser::wrap($user);
         }
 
-//        dd($this, $this->created_at, $user->lastOrder);
+        //        dd($this, $this->created_at, $user->lastOrder);
 
         $query->where('created_at', '<', $user->lastOrder->created_at);
     }
