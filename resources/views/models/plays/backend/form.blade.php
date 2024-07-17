@@ -5,7 +5,11 @@
     use Helix\Lego\Enums\AppAsset;
 @endphp
 
-<x-lego::app-asset asset="css/monologues-backend.css" vendor="monologues" :type="AppAsset::STYLESHEET" />
+<x-lego::app-asset
+    asset="css/monologues-backend.css"
+    vendor="monologues"
+    :type="AppAsset::STYLESHEET"
+/>
 
 <x-fab::layouts.page
     :breadcrumbs="[
@@ -121,7 +125,7 @@
                     name="model.slug"
                     wire:model.debounce.500ms="model.slug"
                     label="URL and handle (slug)"
-                    :help="url('') . Route::getRoutes()->getByName('monologues.show')->getPrefix() . '/' . $model->slug . '<br><br>The URL where this monologue can be viewed. Changing this will break any existing links users may have bookmarked.'"
+                    :help="url('') . Route::getRoutes()->getByName('monologues.app.plays.show')->getPrefix() . '/' . $model->slug . '<br><br>The URL where this monologue can be viewed. Changing this will break any existing links users may have bookmarked.'"
                     :disabled="! $model->exists"
                 />
             </x-fab::layouts.panel>
