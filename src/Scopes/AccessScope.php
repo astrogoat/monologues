@@ -15,6 +15,10 @@ class AccessScope implements Scope
             return $builder->where('id', false);
         }
 
+        if (auth()->user()->hasRole('admin')) {
+            return $builder;
+        }
+
         $lastOrder = MonologueUser::wrap(auth()->user())->lastOrder;
 
         if (! $lastOrder) {
