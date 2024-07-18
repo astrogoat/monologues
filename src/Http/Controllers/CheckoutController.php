@@ -10,6 +10,7 @@ use Astrogoat\Monologues\Order;
 use Astrogoat\Monologues\Scopes\CompletedScope;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
+use Astrogoat\Monologues\Settings\MonologuesSettings;
 
 class CheckoutController
 {
@@ -22,8 +23,8 @@ class CheckoutController
         ]);
 
         return BillableUser::fromUser($request->user())->checkout($order->price_ids, [
-            'success_url' => route('monologues.checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('monologues.landing-page'),
+            'success_url' => route('monologue-database.checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => resolve(MonologuesSettings::class)->getLandingPageModel()->getShowRoute(),
             'metadata' => [
                 'order_id' => $order->id,
             ],
@@ -50,9 +51,9 @@ class CheckoutController
 
         $order->update(['status' => OrderStatus::COMPLETED]);
 
-        auth()->user()->assignRole(Role::CUSTOMER->assign());
+        auth()->user()->assignRole(Role::CUSTOMER->value);
 
-        return redirect()->route('monologues.app.monologues.index');
+        return redirect()->route('monologue-database.monologues.index');
     }
 
     public function cancelled()

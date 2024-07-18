@@ -4,7 +4,7 @@ namespace Astrogoat\Monologues\Enums;
 
 enum Role: string
 {
-    case CUSTOMER = 'customer';
+    case CUSTOMER = 'monologues_customer';
 
     public function check(): string
     {

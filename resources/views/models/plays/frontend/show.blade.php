@@ -12,14 +12,14 @@
         @foreach($play->monologues()->paginate(15) as $monologue)
             <x-fab::lists.table.row :odd="$loop->odd">
                 <x-fab::lists.table.column primary>
-                    <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
+                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
                 </x-fab::lists.table.column>
                 <x-fab::lists.table.column>
-                    <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ Str::limit($monologue->excerpt, 60) }}</a>
+                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ Str::limit($monologue->excerpt, 60) }}</a>
                 </x-fab::lists.table.column>
                 <x-fab::lists.table.column align="right">
                     <x-fab::elements.button size="xs">
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">View</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">View</a>
                     </x-fab::elements.button>
                 </x-fab::lists.table.column>
             </x-fab::lists.table.row>

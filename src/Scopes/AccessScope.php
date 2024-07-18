@@ -25,6 +25,6 @@ class AccessScope implements Scope
             return $builder->where('id', false);
         }
 
-        $builder->where('created_at', '<=', $lastOrder->created_at);
+        $builder->where('created_at', '<=', $lastOrder->created_at->addYear());
     }
 }

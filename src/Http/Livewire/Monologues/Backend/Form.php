@@ -63,7 +63,7 @@ class Form extends BaseForm
         $title = match (true) {
             filled($this->model->excerpt) => $this->model->excerpt,
             filled($this->model->description) => $this->model->description,
-            filled($this->model->text) => $this->model->description,
+            filled($this->model->text) => $this->model->text,
             default => '[ ... ]',
         };
 

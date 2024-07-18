@@ -50,14 +50,14 @@
                     <div
                         class="monologues-hidden sm:monologues--my-px sm:monologues-ml-6 sm:monologues-flex sm:monologues-space-x-8">
                         <a
-                            href="{{ route('monologues.app.monologues.index') }}"
-                            class="{{ currentRouteIs(['monologues.app.monologues.index', 'monologues.app.monologues.show']) ? 'monologues-border-indigo-500' : 'monologues-border-transparent hover:monologues-border-gray-300 hover:monologues-text-gray-700' }} monologues-inline-flex monologues-items-center monologues-border-b-2 monologues-px-1 monologues-pt-1 monologues-text-sm monologues-font-medium monologues-text-gray-500"
+                            href="{{ route('monologue-database.monologues.index') }}"
+                            class="{{ currentRouteIs(['monologue-database.monologues.index', 'monologue-database.monologues.show']) ? 'monologues-border-indigo-500' : 'monologues-border-transparent hover:monologues-border-gray-300 hover:monologues-text-gray-700' }} monologues-inline-flex monologues-items-center monologues-border-b-2 monologues-px-1 monologues-pt-1 monologues-text-sm monologues-font-medium monologues-text-gray-500"
                         >
                             Monologues
                         </a>
                         <a
-                            href="{{ route('monologues.app.plays.index') }}"
-                            class="{{ currentRouteIs(['monologues.app.plays.index', 'monologues.app.plays.show']) ? 'monologues-border-indigo-500' : 'monologues-border-transparent hover:monologues-border-gray-300 hover:monologues-text-gray-700' }} monologues-inline-flex monologues-items-center monologues-border-b-2 monologues-px-1 monologues-pt-1 monologues-text-sm monologues-font-medium monologues-text-gray-500"
+                            href="{{ route('monologue-database.plays.index') }}"
+                            class="{{ currentRouteIs(['monologue-database.plays.index', 'monologue-database.plays.show']) ? 'monologues-border-indigo-500' : 'monologues-border-transparent hover:monologues-border-gray-300 hover:monologues-text-gray-700' }} monologues-inline-flex monologues-items-center monologues-border-b-2 monologues-px-1 monologues-pt-1 monologues-text-sm monologues-font-medium monologues-text-gray-500"
                         >
                             Plays
                         </a>
@@ -104,11 +104,14 @@
                             tabindex="-1"
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#"
-                               class="monologues-block monologues-px-4 monologues-py-2 monologues-text-sm monologues-text-gray-700"
-                               role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            {{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>--}}
-                            {{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>--}}
+{{--                            <a href="#"--}}
+{{--                               class="monologues-block monologues-px-4 monologues-py-2 monologues-text-sm monologues-text-gray-700"--}}
+{{--                               role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>--}}
+{{--                            --}}{{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>--}}
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -148,41 +151,48 @@
         >
             <div class="monologues-space-y-1 monologues-pb-3 monologues-pt-2">
                 <!-- Current: "border-indigo-500 bg-indigo-50 text-indigo-700", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" -->
-                <a href="{{ route('monologues.app.monologues.index') }}"
+                <a href="{{ route('monologue-database.monologues.index') }}"
                    class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800">Monologues</a>
-                <a href="{{ route('monologues.app.plays.index') }}"
+                <a href="{{ route('monologue-database.plays.index') }}"
                    class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800">Plays</a>
                 {{--                <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Projects</a>--}}
                 {{--                <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Calendar</a>--}}
             </div>
             <div class="monologues-border-t monologues-border-gray-200 monologues-pb-3 monologues-pt-4">
                 <div class="monologues-flex monologues-items-center monologues-px-4">
-                    <div class="monologues-flex-shrink-0">
-                        <img class="monologues-h-10 monologues-w-10 monologues-rounded-full"
-                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                             alt="">
-                    </div>
-                    <div class="monologues-ml-3">
-                        <div class="monologues-text-base monologues-font-medium monologues-text-gray-800">Tom Cook</div>
-                        <div class="monologues-text-sm monologues-font-medium monologues-text-gray-500">
-                            tom@example.com
-                        </div>
-                    </div>
-                    <button type="button"
-                            class="monologues-relative monologues-ml-auto monologues-flex-shrink-0 monologues-rounded-full monologues-bg-white monologues-p-1 monologues-text-gray-400 hover:monologues-text-gray-500 focus:monologues-outline-none focus:monologues-ring-2 focus:monologues-ring-indigo-500 focus:monologues-ring-offset-2">
-                        <span class="monologues-absolute monologues--inset-1.5"></span>
-                        <span class="monologues-sr-only">View notifications</span>
-                        <svg class="monologues-h-6 monologues-w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                             stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/>
-                        </svg>
-                    </button>
+{{--                    <div class="monologues-flex-shrink-0">--}}
+{{--                        <img class="monologues-h-10 monologues-w-10 monologues-rounded-full"--}}
+{{--                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"--}}
+{{--                             alt="">--}}
+{{--                    </div>--}}
+{{--                    <div class="monologues-ml-3">--}}
+{{--                        <div class="monologues-text-base monologues-font-medium monologues-text-gray-800">Tom Cook</div>--}}
+{{--                        <div class="monologues-text-sm monologues-font-medium monologues-text-gray-500">--}}
+{{--                            tom@example.com--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <button type="button"--}}
+{{--                            class="monologues-relative monologues-ml-auto monologues-flex-shrink-0 monologues-rounded-full monologues-bg-white monologues-p-1 monologues-text-gray-400 hover:monologues-text-gray-500 focus:monologues-outline-none focus:monologues-ring-2 focus:monologues-ring-indigo-500 focus:monologues-ring-offset-2">--}}
+{{--                        <span class="monologues-absolute monologues--inset-1.5"></span>--}}
+{{--                        <span class="monologues-sr-only">View notifications</span>--}}
+{{--                        <svg class="monologues-h-6 monologues-w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"--}}
+{{--                             stroke="currentColor" aria-hidden="true">--}}
+{{--                            <path stroke-linecap="round" stroke-linejoin="round"--}}
+{{--                                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/>--}}
+{{--                        </svg>--}}
+{{--                    </button>--}}
                 </div>
                 <div class="monologues-mt-3 monologues-space-y-1">
-                    <a href="#"
-                       class="monologues-block monologues-px-4 monologues-py-2 monologues-text-base monologues-font-medium monologues-text-gray-500 hover:monologues-bg-gray-100 hover:monologues-text-gray-800">Your
-                        Profile</a>
+{{--                    <a --}}
+{{--                        href="#"--}}
+{{--                        class="monologues-block monologues-px-4 monologues-py-2 monologues-text-base monologues-font-medium monologues-text-gray-500 hover:monologues-bg-gray-100 hover:monologues-text-gray-800"--}}
+{{--                    >Your--}}
+{{--                        Profile--}}
+{{--                    </a>--}}
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Logout</button>
+                    </form>
                     {{--                    <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Settings</a>--}}
                     {{--                    <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800">Sign out</a>--}}
                 </div>

@@ -5,6 +5,7 @@ namespace Astrogoat\Monologues\Http\Middleware;
 use Astrogoat\Monologues\Models\MonologueUser;
 use Closure;
 use Illuminate\Http\Request;
+use Astrogoat\Monologues\Settings\MonologuesSettings;
 
 class HasDatabaseAccess
 {
@@ -15,7 +16,9 @@ class HasDatabaseAccess
         }
 
         if (! MonologueUser::wrap($user)->hasDatabaseAccess()) {
-            return redirect()->route('monologues.landing-page');
+            $settings = resolve(MonologuesSettings::class);
+
+            return redirect($settings->getLandingPageModel()->getShowRoute());
         }
 
         return $next($request);

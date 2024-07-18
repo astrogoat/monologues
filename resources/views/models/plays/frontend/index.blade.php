@@ -22,36 +22,36 @@
             <x-fab::lists.table.row :odd="$loop->odd">
                 @if($this->shouldShowColumn('title'))
                     <x-fab::lists.table.column primary text-wrap>
-                        <a href="{{ route('monologues.app.plays.show', $play) }}">{{ $play->title }}</a>
+                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->title }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('playwright'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.plays.show', $play) }}">{{ $play->playwright }}</a>
+                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->playwright }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('published_year'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.plays.show', $play) }}">{{ $play->published_year }}</a>
+                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->published_year }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('monologues_count'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.plays.show', $play) }}">{{ $play->monologues()->forUser(auth()->user())->count() }}</a>
+                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->monologues()->forUser(auth()->user())->count() }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('type'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.plays.show', $play) }}">{{ $play->type }}</a>
+                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->type }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 <x-fab::lists.table.column align="right" slim>
-                    <a href="{{ route('monologues.app.plays.show', $play) }}">View</a>
+                    <a href="{{ route('monologue-database.plays.show', $play) }}">View</a>
                 </x-fab::lists.table.column>
 
             </x-fab::lists.table.row>

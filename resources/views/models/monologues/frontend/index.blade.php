@@ -19,42 +19,42 @@
             <x-fab::lists.table.row :odd="$loop->odd">
                 @if($this->shouldShowColumn('play_id'))
                     <x-fab::lists.table.column primary text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->play->title }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->play->title }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('playwright'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->play->playwright }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->play->playwright }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('character'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('sex'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->sex }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->sex }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('age'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->age }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->age }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('identity'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologues.app.monologues.show', $monologue) }}">{{ $monologue->identity }}</a>
+                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->identity }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 <x-fab::lists.table.column align="right" slim>
-                    <a href="{{ route('monologues.app.monologues.show', $monologue) }}">View</a>
+                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">View</a>
                 </x-fab::lists.table.column>
 
             </x-fab::lists.table.row>
