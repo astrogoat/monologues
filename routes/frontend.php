@@ -26,7 +26,6 @@ Route::group([
             ->name('checkout');
     });
 
-
     Route::group([
         'middleware' => [
             'enabled:' . MonologuesSettings::class,
