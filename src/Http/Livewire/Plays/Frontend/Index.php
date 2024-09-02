@@ -2,14 +2,17 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Plays\Frontend;
 
-use Astrogoat\Monologues\Enums\TheatricalType;
+use Astrogoat\Monologues\Models\Genre;
+use Illuminate\Database\Eloquent\Builder;
+use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Models\Play;
 use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
 
 class Index extends BaseIndex
 {
     public array $casts = [
-        'type' => 'array',
+        'genre' => 'array',
+        'monologues_count' => 'int',
     ];
 
     public function model(): string
@@ -24,7 +27,7 @@ class Index extends BaseIndex
             'playwright' => 'Playwright',
             'published_year' => 'Year',
             'monologues_count' => 'Monologues',
-            'type' => 'Type',
+            'genre' => 'Genre',
         ];
     }
 
@@ -33,11 +36,23 @@ class Index extends BaseIndex
         return 'title';
     }
 
-    public function typeFilterOptions(): array
+    public function genreFilterOptions(): array
     {
-        return collect(TheatricalType::cases())
-            ->mapWithKeys(fn (TheatricalType $case) => [$case->value => $case->value])
-            ->toArray();
+        return Genre::query()->orderBy('name')->pluck('name', 'name')->toArray();
+    }
+
+    public function scopeGenre(Builder $query, $value)
+    {
+        return $query->whereHas('monologues.genres', function (Builder $builder) use ($value) {
+            $builder->whereIn('name', explode(',', $value));
+        });
+    }
+
+    public function getGenres(Play $play): array
+    {
+        return $play->monologues->map(function (Monologue $monologue) {
+            return $monologue->genres->pluck('name');
+        })->flatten()->unique()->toArray();
     }
 
     public function render()

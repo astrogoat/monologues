@@ -1,7 +1,6 @@
 @php
     use Helix\Fabrick\Icon;
     use Illuminate\Support\Str;
-    use Astrogoat\Monologues\Enums\CharacterSex;
     use Helix\Lego\Enums\AppAsset;
 @endphp
 
@@ -40,28 +39,11 @@
 
     <x-fab::layouts.main-with-aside>
         <x-fab::layouts.panel title="Character Details">
-            <div class="monologues-grid monologues-grid-cols-4 monologues-gap-3">
+            <div class="monologues-grid monologues-grid-cols-2 monologues-gap-3">
                 <x-fab::forms.input
                     name="model.character"
                     label="Name"
                     wire:model="model.character"
-                />
-
-                <x-fab::forms.select
-                    name="model.sex"
-                    label="Sex"
-                    wire:model="model.sex"
-                >
-                    <option>-- Select sex --</option>
-                    @foreach(CharacterSex::cases() as $sex)
-                        <option value="{{ $sex->value }}">{{ $sex->value }}</option>
-                    @endforeach
-                </x-fab::forms.select>
-
-                <x-fab::forms.input
-                    name="model.identity"
-                    label="Identity"
-                    wire:model="model.identity"
                 />
 
                 <x-fab::forms.input
@@ -77,14 +59,12 @@
                 name="model.description"
                 label="Description"
                 wire:model="model.description"
-                rows="2"
             />
 
             <x-fab::forms.textarea
                 name="model.excerpt"
                 label="Excerpt"
                 wire:model="model.excerpt"
-                rows="1"
             />
 
             <x-fab::forms.textarea
@@ -95,24 +75,30 @@
             />
         </x-fab::layouts.panel>
 
-        <x-slot name="aside">
-            <x-fab::layouts.panel>
-                <div class="monologues-flex monologues-flex-col monologues-text-sm monologues-leading-6 monologues-text-gray-500">
-                    <div class="monologues-text-lg monologues-font-medium monologues-text-gray-900">
-                        <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">
-                            {{ $model->play->title }}
-                        </a>
-                    </div>
-                    <div>by {{ $model->play->playwright }}</div>
-                    @if($model->play->published_year)
-                        <div>Published in {{ $model->play->published_year }}</div>
-                    @endif
-                    <div>{{ $model->play->type }}</div>
-                    <div class="monologues-underline monologues-mt-4">
-                        <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">Edit Play</a>
-                    </div>
+        <x-fab::layouts.panel>
+            <div class="monologues-flex monologues-flex-col monologues-text-sm monologues-leading-6 monologues-text-gray-500">
+                <div class="monologues-text-lg monologues-font-medium monologues-text-gray-900">
+                    <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">
+                        {{ $model->play->title }}
+                    </a>
                 </div>
-            </x-fab::layouts.panel>
+                <div>by {{ $model->play->playwright }}</div>
+                @if($model->play->published_year)
+                    <div>Published in {{ $model->play->published_year }}</div>
+                @endif
+                <div>{{ $model->play->type }}</div>
+                <div class="monologues-underline monologues-mt-4">
+                    <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">Edit Play</a>
+                </div>
+            </div>
+        </x-fab::layouts.panel>
+
+        <x-slot name="aside">
+            @foreach($this->syncableRelationships() as $relationship)
+                <x-lego::syncable-relationship
+                    :relationship="$relationship"
+                />
+            @endforeach
         </x-slot>
     </x-fab::layouts.main-with-aside>
 </x-fab::layouts.page>

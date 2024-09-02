@@ -3,14 +3,48 @@
 namespace Astrogoat\Monologues\Http\Livewire\Plays\Backend;
 
 use Astrogoat\Monologues\Models\Play;
+use Astrogoat\Monologues\Models\Genre;
+use Astrogoat\Monologues\Models\PlaySource;
+use Helix\Lego\Services\SyncableRelationship;
 use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
 use Helix\Lego\Rules\SlugRule;
+use Helix\Lego\Http\Livewire\Traits\SyncsRelationships;
+use Helix\Lego\Http\Livewire\Traits\RequireConfirmation;
+use Astrogoat\Monologues\Models\GenderIdentity;
 
 class Form extends BaseForm
 {
+    use RequireConfirmation;
+    use SyncsRelationships;
+
+    public array $playSources = [];
+
     public function mount($play = null)
     {
         $this->setModel($play);
+
+        foreach ($this->model->playSources as $playSource) {
+            $this->playSources[$playSource->id] = $playSource->pivot->url;
+        }
+    }
+
+    public function saving()
+    {
+        $data = collect($this->playSources)->mapWithKeys(function ($url, $sourceId) {
+            return [$sourceId => ['url' => $url]];
+        })->toArray();
+
+        $this->model->playSources()->sync($data);
+    }
+
+    public function syncableRelationships(): array
+    {
+        return [
+            SyncableRelationship::relationship(PlaySource::class)
+                ->name('playSources')
+                ->inverseRelationshipName('plays')
+                ->labelProperty('name'),
+        ];
     }
 
     public function rules(): array

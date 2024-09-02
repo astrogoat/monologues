@@ -1,14 +1,24 @@
 @php use Illuminate\Support\Str; @endphp
-<x-fab::layouts.page
-    :title="$monologue->play->title"
-    :description="$monologue->play->title . ' by ' . $monologue->play->playwright . ($monologue->play->published_year ? ' (' . $monologue->play->published_year . ')' : '')"
->
+<x-fab::layouts.page>
+    <x-slot:title>
+        <a href="{{ route('monologue-database.plays.show', $monologue->play) }}">
+            {{ $monologue->play->title }}
+        </a>
+    </x-slot:title>
+    <x-slot name="description">
+        by {{ $monologue->play->playwright }} {{ $monologue->play->published_year ? ' (' . $monologue->play->published_year . ')' : '' }}
+        @foreach($monologue->genres as $genre)
+            <x-fab::elements.badge>
+                {{ $genre->name }}
+            </x-fab::elements.badge>
+        @endforeach
+    </x-slot>
     <x-slot name="actions">
 {{--        <x-fab::elements.button class="monologues-mr-4" wire:click="bookmark">--}}
 {{--            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="monologues-w-6 monologues-h-6"><path d="M6 7.8c0-1.9.03-2.36.21-2.71 .19-.38.49-.69.87-.88 .35-.19.8-.22 2.7-.22h4.4c1.89 0 2.35.03 2.7.21 .37.19.68.49.87.87 .18.35.21.8.21 2.7v13.2l1.49-.87 -7-4c-.31-.18-.69-.18-1 0l-7 4 1.49.86V7.76Zm-2 0V21c0 .76.82 1.24 1.49.86l7-4h-1l7 4c.66.38 1.49-.11 1.49-.87V7.79c0-2.31-.05-2.85-.44-3.62 -.39-.76-1-1.37-1.75-1.75 -.77-.4-1.32-.44-3.62-.44h-4.4c-2.31 0-2.85.04-3.62.43 -.76.38-1.37.99-1.75 1.74 -.4.76-.44 1.31-.44 3.61Z"/></svg>--}}
 {{--        </x-fab::elements.button>--}}
 
-        <x-fab::elements.button-group>
+        <x-fab::elements.button-group size="xs">
             <x-fab::elements.button-group.button
                 position="left"
                 wire:click="previous"
@@ -37,43 +47,128 @@
 {{--            <x-fab::elements.button primary class="monologues-self-end">Book session with PK</x-fab::elements.button>--}}
 {{--        </div>--}}
     </x-slot>
-    <x-fab::layouts.panel>
-        <x-fab::data-displays.description-lists.left-aligned
-            :title="$monologue->description"
-        >
-            <x-fab::data-displays.description-lists.left-aligned.row label="Character">
-                {{ $monologue->character }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+    <div class="monologues-grid monologues-grid-cols-1 sm:monologues-grid-cols-3 monologues-gap-4">
+        <div class="monologues-flex monologues-flex-col monologues-col-span-2 monologues-gap-4">
+            @if($monologue->description)
+                <x-fab::layouts.panel title="Monologue Description" class="monologues-text-gray-700">
+                    {!! nl2br($monologue->description) !!}
+                </x-fab::layouts.panel>
+            @endif
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Sex">
-                {{ $monologue->sex }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+            @if($monologue->play->description)
+                <x-fab::layouts.panel title="Play Description" class="monologues-text-gray-700">
+                    {!! nl2br($monologue->play->description) !!}
+                </x-fab::layouts.panel>
+            @endif
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Identity">
-                {{ $monologue->identity }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+            <div class="monologues-col-span-2">
+                <x-fab::lists.two-column title="Excerpt">
+                    <x-fab::lists.two-column.column title="First Line">
+                        <x-slot:description class="monologues-whitespace-normal">
+                            <div class="fab-text-gray-700">
+                                {!! nl2br($monologue->excerptsFirstLine) !!}
+                            </div>
+                        </x-slot:description>
+                    </x-fab::lists.two-column.column>
+                    <x-fab::lists.two-column.column title="Last Line">
+                        <x-slot:description class="monologues-whitespace-normal">
+                            <div class="fab-text-gray-700">
+                                {!! nl2br($monologue->excerptsLastLine) !!}
+                            </div>
+                        </x-slot:description>
+                    </x-fab::lists.two-column.column>
+                </x-fab::lists.two-column>
+            </div>
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Age">
-                {{ $monologue->age }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+            @hasanyrole(['admin', 'editor', 'manager'])
+                <x-fab::layouts.panel title="Full Monologue" class="monologues-text-gray-700">
+                    {!! nl2br($monologue->text) !!}
+                </x-fab::layouts.panel>
+            @endhasanyrole
+        </div>
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Type">
-                {{ $monologue->type }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+        <div class="monologues-space-y-4">
+            <x-fab::lists.two-column title="Character">
+                <x-fab::lists.two-column.column title="Name" :description="$monologue->character" />
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Excerpt">
-                "{{ Str::finish($monologue->excerpt, '...') }}"
-            </x-fab::data-displays.description-lists.left-aligned.row>
+                <x-fab::lists.two-column.column title="Gender Identity">
+                    <x-slot:description>
+                        @foreach($monologue->genderIdentities as $genderIdentity)
+                            <a href="{{ route('monologue-database.monologues.index', ["filter[gender_identities]={$genderIdentity->name}"]) }}">
+                                <x-fab::elements.badge>
+                                    {{ $genderIdentity->name }}
+                                </x-fab::elements.badge>
+                            </a>
+                        @endforeach
+                    </x-slot:description>
+                </x-fab::lists.two-column.column>
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Where to find">
-                {{ $monologue->play->where_to_find }}
-            </x-fab::data-displays.description-lists.left-aligned.row>
+                <x-fab::lists.two-column.column title="Identity">
+                    <x-slot:description>
+                        @foreach($monologue->identities as $identity)
+                            <a href="{{ route('monologue-database.monologues.index', ["filter[identities]={$identity->name}"]) }}">
+                                <x-fab::elements.badge>
+                                    {{ $identity->name }}
+                                </x-fab::elements.badge>
+                            </a>
+                        @endforeach
+                    </x-slot:description>
+                </x-fab::lists.two-column.column>
 
-            <x-fab::data-displays.description-lists.left-aligned.row label="Added">
-                {{ $monologue->created_at->diffForHumans() }} <span class="monologues-text-gray-500 monologues-text-xs">({{ $monologue->created_at->toFormattedDateString() }})</span>
-            </x-fab::data-displays.description-lists.left-aligned.row>
-        </x-fab::data-displays.description-lists.left-aligned>
-    </x-fab::layouts.panel>
+                <x-fab::lists.two-column.column title="Age">
+                    <x-slot:description>
+                        @foreach($monologue->ages as $age)
+                            <a href="{{ route('monologue-database.monologues.index', ["filter[ages]={$age->name}"]) }}">
+                                <x-fab::elements.badge>
+                                    {{ $age->name }}
+                                </x-fab::elements.badge>
+                            </a>
+                        @endforeach
+                    </x-slot:description>
+                </x-fab::lists.two-column.column>
+            </x-fab::lists.two-column>
+
+            <x-fab::lists.two-column title="Where to Find the Play">
+                @foreach($monologue->play->playSources as $source)
+                    <x-fab::lists.two-column.column
+                        :url="$source->pivot->url"
+                        target="_blank"
+                    >
+                        <x-slot:title>
+                            {{ $source->name }}
+                        </x-slot:title>
+
+                        @if($source->pivot->url)
+                            <x-slot:secondary>
+                                <div class="monologues-justify-end monologues-uppercase monologues-tracking-wide monologues-flex">
+                                    <div class="monologues-underline monologues-text-xs">Link</div>
+                                </div>
+                            </x-slot:secondary>
+                            <x-slot:icon>
+                                <x-fab::elements.icon :icon="Helix\Fabrick\Icon::EXTERNAL_LINK" class="monologues-w-4" />
+                            </x-slot:icon>
+                        @endif
+                    </x-fab::lists.two-column.column>
+                @endforeach
+            </x-fab::lists.two-column>
+
+            <x-fab::layouts.panel title="Monologue Length">
+                <x-slot:actions>
+                    <x-fab::elements.badge :color="$monologue->length()->color()">
+                        {{ $monologue->length()->value }}
+                    </x-fab::elements.badge>
+                </x-slot:actions>
+                <div class="overflow-hidden rounded-full bg-gray-200">
+                    <div class="h-2 rounded-full bg-indigo-600" style="width: {{ $monologue->length()->progressBarWidth() }}%"></div>
+                </div>
+                <div class="monologues-text-gray-700 monologues-text-sm monologues-flex monologues-justify-between">
+{{--                    <span>{{ $monologue->length()->value }} length.</span>--}}
+                    <span>{{ $monologue->wordCount }} words</span>
+                    <span>{{ $monologue->characterCount }} characters</span>
+                </div>
+            </x-fab::layouts.panel>
+        </div>
+    </div>
 
     <x-monologues::ctas.book-session />
 </x-fab::layouts.page>

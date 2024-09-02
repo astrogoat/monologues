@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Play extends Model
 {
@@ -30,6 +31,16 @@ class Play extends Model
     public function monologues(): HasMany
     {
         return $this->hasMany(Monologue::class);
+    }
+
+    public function playTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class);
+    }
+
+    public function playSources(): BelongsToMany
+    {
+        return $this->belongsToMany(PlaySource::class)->withPivot('url');
     }
 
     public static function icon(): string

@@ -1,7 +1,8 @@
 @php
     use Helix\Fabrick\Icon;
     use Illuminate\Support\Str;
-    use Astrogoat\Monologues\Enums\TheatricalType;
+    use Astrogoat\Monologues\Models\Genre;
+    use Astrogoat\Monologues\Models\PlaySource;use Astrogoat\Monologues\Enums\TheatricalType;
     use Helix\Lego\Enums\AppAsset;
 @endphp
 
@@ -31,13 +32,13 @@
     </x-slot>
     @if($this->modelSupportsSoftDeletes() && $model->trashed())
         <x-slot name="description">
-            This product has be archived
+            This play has be archived
         </x-slot>
     @endif
 
     <x-fab::layouts.main-with-aside>
         <x-fab::layouts.panel title="Play Details">
-            <div class="monologues-grid monologues-grid-cols-2 monologues-gap-3">
+            <div class="monologues-grid monologues-grid-cols-3 monologues-gap-3">
                 <x-fab::forms.input
                     name="model.title"
                     label="Title"
@@ -49,9 +50,7 @@
                     label="Playwright"
                     wire:model="model.playwright"
                 />
-            </div>
 
-            <div class="monologues-grid monologues-grid-cols-3 monologues-gap-3">
                 <x-fab::forms.select
                     name="model.published_year"
                     label="Published Year"
@@ -61,23 +60,25 @@
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
                 </x-fab::forms.select>
+            </div>
+        </x-fab::layouts.panel>
 
-                <x-fab::forms.select
-                    name="model.type"
-                    label="Type"
-                    wire:model="model.type"
-                >
-                    <option>-- Select type -- </option>
-                    @foreach(TheatricalType::cases() as $type)
-                        <option value="{{ $type->value }}">{{ $type->value }}</option>
-                    @endforeach
-                </x-fab::forms.select>
-
-                <x-fab::forms.input
-                    name="model.where_to_find"
-                    label="Where to find"
-                    wire:model="model.where_to_find"
-                />
+        <x-fab::layouts.panel
+            title="Where to find"
+        >
+            <div class="monologues-space-y-4">
+                @foreach($this->syncableRelationships['playSources'] as $sourceId)
+                    @php($source = PlaySource::find($sourceId))
+                    <div class="monologues-flex monologues-items-center monologues-w-full monologues-gap-3">
+                        <div class="monologues-text-sm monologues-font-semibold">{{ $source->name }}</div>
+                        <x-fab::forms.input
+                            placeholder="https://"
+                            class="monologues-flex-1"
+                            size="sm"
+                            wire:model="playSources.{{ $source->id }}"
+                        />
+                    </div>
+                @endforeach
             </div>
         </x-fab::layouts.panel>
 
@@ -87,7 +88,8 @@
             @if($model->exists)
                 <x-slot name="actions">
                     <x-fab::elements.button size="xs">
-                        <a href="{{ route('lego.monologues.index', ['filter[play_id]' => $model->title]) }}">View All</a>
+                        <a href="{{ route('lego.monologues.index', ['filter[play_id]' => $model->title]) }}">View
+                            All</a>
                     </x-fab::elements.button>
 
                     <x-fab::elements.button size="xs">
@@ -120,6 +122,12 @@
         {{ $this->model->monologues()->paginate(15)->links() }}
 
         <x-slot name="aside">
+            @foreach($this->syncableRelationships() as $relationship)
+                <x-lego::syncable-relationship
+                    :relationship="$relationship"
+                />
+            @endforeach
+
             <x-fab::layouts.panel title="URL Structure">
                 <x-fab::forms.input
                     name="model.slug"

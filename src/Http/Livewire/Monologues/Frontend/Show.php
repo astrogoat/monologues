@@ -46,7 +46,7 @@ class Show extends Component
             return;
         }
 
-        return $this->redirect(route('monologues.show', $previous));
+        return $this->redirect(route('monologue-database.monologues.show', $previous));
     }
 
     public function next()
@@ -57,16 +57,12 @@ class Show extends Component
             return;
         }
 
-        return $this->redirect(route('monologues.show', $next));
+        return $this->redirect(route('monologue-database.monologues.show', $next));
     }
-
-    //    public function bookmark()
-    //    {
-    //
-    //    }
 
     public function render()
     {
-        return view('monologues::models.monologues.frontend.show')->extends('monologues::layouts.monologues');
+        return view('monologues::models.monologues.frontend.show')
+            ->extends('monologues::layouts.monologues');
     }
 }

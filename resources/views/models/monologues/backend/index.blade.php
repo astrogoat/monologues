@@ -44,6 +44,12 @@
                     </x-fab::lists.table.column>
                 @endif
 
+                @if($this->shouldShowColumn('genre'))
+                    <x-fab::lists.table.column text-wrap>
+                        <a href="{{ route('lego.monologues.edit', $monologue) }}">{{ $monologue->genres()->pluck('name')->implode(',') }}</a>
+                    </x-fab::lists.table.column>
+                @endif
+
                 @if($this->shouldShowColumn('published_year'))
                     <x-fab::lists.table.column text-wrap>
                         <a href="{{ route('lego.monologues.edit', $monologue) }}">{{ $monologue->play->published_year }}</a>

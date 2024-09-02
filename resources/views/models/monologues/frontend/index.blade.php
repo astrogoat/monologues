@@ -2,20 +2,20 @@
 
 <x-fab::layouts.page
     title="Monologues"
-    x-data="{ showColumnFilters: false }"
+    x-data="{ showColumnFilters: true }"
 >
     @include('lego::models._includes.indexes.filters')
 
     <x-fab::lists.table>
         <x-slot name="headers">
             @include('lego::models._includes.indexes.headers')
-            <x-fab::lists.table.header :hidden="true">View</x-fab::lists.table.header>
+            <x-fab::lists.table.header>View</x-fab::lists.table.header>
         </x-slot>
 
         @include('lego::models._includes.indexes.header-filters')
         <x-fab::lists.table.header x-show="showColumnFilters" x-cloak class="bg-gray-100" />
 
-        @foreach($models->loadMissing('play') as $monologue)
+        @forelse($models->loadMissing('play') as $monologue)
             <x-fab::lists.table.row :odd="$loop->odd">
                 @if($this->shouldShowColumn('play_id'))
                     <x-fab::lists.table.column primary text-wrap>
@@ -35,21 +35,33 @@
                     </x-fab::lists.table.column>
                 @endif
 
-                @if($this->shouldShowColumn('sex'))
+                @if($this->shouldShowColumn('gender_identities'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->sex }}</a>
+                        @foreach($monologue->genderIdentities as $gender)
+                            <x-fab::elements.badge class="mr-1">
+                                {{ $gender->name }}
+                            </x-fab::elements.badge>
+                        @endforeach
                     </x-fab::lists.table.column>
                 @endif
 
-                @if($this->shouldShowColumn('age'))
+                @if($this->shouldShowColumn('ages'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->age }}</a>
+                        @foreach($monologue->ages as $age)
+                            <x-fab::elements.badge class="mr-1">
+                                {{ $age->name }}
+                            </x-fab::elements.badge>
+                        @endforeach
                     </x-fab::lists.table.column>
                 @endif
 
-                @if($this->shouldShowColumn('identity'))
+                @if($this->shouldShowColumn('identities'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->identity }}</a>
+                        @foreach($monologue->identities as $identity)
+                            <x-fab::elements.badge class="mr-1">
+                                {{ $identity->name }}
+                            </x-fab::elements.badge>
+                        @endforeach
                     </x-fab::lists.table.column>
                 @endif
 
@@ -58,7 +70,13 @@
                 </x-fab::lists.table.column>
 
             </x-fab::lists.table.row>
-        @endforeach
+        @empty
+            <x-fab::lists.table.row :hover="false">
+                <x-fab::lists.table.column text-wrap colspan="9">
+                    <div class="monologues-h-96 monologues-text-xl monologues-tracking-wide monologues-font-light monologues-flex monologues-items-center monologues-justify-center">No results found</div>
+                </x-fab::lists.table.column>
+            </x-fab::lists.table.row>
+        @endforelse
     </x-fab::lists.table>
 
     @include('lego::models._includes.indexes.pagination')

@@ -1,11 +1,7 @@
 @php use Astrogoat\Monologues\Models\Play; @endphp
 <x-fab::layouts.page
     title="Plays"
-{{--    :breadcrumbs="[--}}
-{{--        ['title' => 'Home', 'url' => route('lego.dashboard')],--}}
-{{--        ['title' => 'Plays','url' => route('lego.monologues.plays.index')],--}}
-{{--    ]"--}}
-    x-data="{ showColumnFilters: false }"
+    x-data="{ showColumnFilters: true }"
 >
     @include('lego::models._includes.indexes.filters')
 
@@ -44,9 +40,13 @@
                     </x-fab::lists.table.column>
                 @endif
 
-                @if($this->shouldShowColumn('type'))
+                @if($this->shouldShowColumn('genre'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->type }}</a>
+                        @foreach($this->getGenres($play) as $genre)
+                            <x-fab::elements.badge>
+                                {{ $genre }}
+                            </x-fab::elements.badge>
+                        @endforeach
                     </x-fab::lists.table.column>
                 @endif
 

@@ -2,15 +2,23 @@
 
 namespace Astrogoat\Monologues\Http\Livewire\Monologues\Backend;
 
-use Astrogoat\Monologues\Enums\CharacterSex;
-use Astrogoat\Monologues\Models\Monologue;
-use Astrogoat\Monologues\Models\Play;
-use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Astrogoat\Monologues\Models\Play;
+use Astrogoat\Monologues\Models\Genre;
+use Astrogoat\Monologues\Models\Monologue;
+use Astrogoat\Monologues\Enums\CharacterSex;
+use Helix\Lego\Services\SyncableRelationship;
+use Astrogoat\Monologues\Models\Age;
+use Astrogoat\Monologues\Models\Identity;
+use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
+use Helix\Lego\Http\Livewire\Traits\SyncsRelationships;
+use Astrogoat\Monologues\Models\GenderIdentity;
 
 class Form extends BaseForm
 {
+    use SyncsRelationships;
+
     public Play $play;
 
     protected bool $canBeDeleted = true;
@@ -61,10 +69,10 @@ class Form extends BaseForm
     public function displayTitle(int $limit = 50): string
     {
         $title = match (true) {
-            filled($this->model->excerpt) => $this->model->excerpt,
+            filled($this->model->excerpt) => Str::of($this->model->excerpt)->remove('[First line]')->prepend($this->model->character . ': '),
             filled($this->model->description) => $this->model->description,
             filled($this->model->text) => $this->model->text,
-            default => '[ ... ]',
+            default => '[Untitled]',
         };
 
         return Str::limit($title, $limit);
@@ -73,6 +81,28 @@ class Form extends BaseForm
     public function redirectAfterDeletionRoute(): string
     {
         return route('lego.monologues.plays.edit', $this->play);
+    }
+
+    public function syncableRelationships(): array
+    {
+        return [
+            SyncableRelationship::relationship(Genre::class)
+                ->name('genres')
+                ->inverseRelationshipName('monologues')
+                ->labelProperty('name'),
+            SyncableRelationship::relationship(GenderIdentity::class)
+                ->name('genderIdentities')
+                ->labelProperty('name')
+                ->inverseRelationshipName('monologues'),
+            SyncableRelationship::relationship(Age::class)
+                ->name('ages')
+                ->labelProperty('name')
+                ->inverseRelationshipName('monologues'),
+            SyncableRelationship::relationship(Identity::class)
+                ->name('identities')
+                ->labelProperty('name')
+                ->inverseRelationshipName('monologues'),
+        ];
     }
 
     public function view(): string

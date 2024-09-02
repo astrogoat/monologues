@@ -13,7 +13,7 @@ class MonologueUser extends Model
 {
     protected $table = 'users';
 
-    private User $user;
+    public User $user;
 
     public function getForeignKey(): string
     {
