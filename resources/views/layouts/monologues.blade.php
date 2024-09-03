@@ -166,10 +166,24 @@
         >
             <div class="monologues-space-y-1 monologues-pb-3 monologues-pt-2">
                 <!-- Current: "border-indigo-500 bg-indigo-50 text-indigo-700", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" -->
-                <a href="{{ route('monologue-database.monologues.index') }}"
-                   class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800">Monologues</a>
-                <a href="{{ route('monologue-database.plays.index') }}"
-                   class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800">Plays</a>
+                <a
+                    href="{{ route('monologue-database.monologues.index') }}"
+                    class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800"
+                >
+                    Monologues
+                </a>
+                <a
+                    href="{{ route('monologue-database.plays.index') }}"
+                    class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800"
+                >
+                    Plays
+                </a>
+                <a
+                    href="{{ route('monologue-database.bookmarks.index') }}"
+                    class="monologues-block monologues-border-l-4 monologues-border-transparent monologues-py-2 monologues-pl-3 monologues-pr-4 monologues-text-base monologues-font-medium monologues-text-gray-600 hover:monologues-border-gray-300 hover:monologues-bg-gray-50 hover:monologues-text-gray-800"
+                >
+                    Bookmarks
+                </a>
                 {{--                <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Projects</a>--}}
                 {{--                <a href="#" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">Calendar</a>--}}
             </div>
