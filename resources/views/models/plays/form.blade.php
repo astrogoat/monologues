@@ -99,7 +99,7 @@
             @endif
             <x-slot name="headers">
                 <x-fab::lists.table.header>Character</x-fab::lists.table.header>
-                <x-fab::lists.table.header>Excerpt</x-fab::lists.table.header>
+                <x-fab::lists.table.header>First line</x-fab::lists.table.header>
                 <x-fab::lists.table.header :hidden="true"></x-fab::lists.table.header>
             </x-slot>
             @foreach($this->model->monologues()->paginate(15) as $monologue)
@@ -108,7 +108,7 @@
                         <a href="{{ route('lego.monologues.edit', [$monologue]) }}">{{ $monologue->character }}</a>
                     </x-fab::lists.table.column>
                     <x-fab::lists.table.column>
-                        <a href="{{ route('lego.monologues.edit', [$monologue]) }}">{{ Str::limit($monologue->excerpt, 60) }}</a>
+                        <a href="{{ route('lego.monologues.edit', [$monologue]) }}">{{ Str::limit($monologue->first_line, 60) }}</a>
                     </x-fab::lists.table.column>
                     <x-fab::lists.table.column align="right">
                         <x-fab::elements.button size="xs">

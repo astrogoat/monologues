@@ -1,9 +1,9 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire\Plays\Frontend;
+namespace Astrogoat\Monologues\Http\Livewire\Plays;
 
-use Astrogoat\Monologues\Models\Play;
 use Livewire\Component;
+use Astrogoat\Monologues\Models\Play;
 use Astrogoat\Monologues\Models\Monologue;
 
 class Show extends Component
@@ -19,7 +19,7 @@ class Show extends Component
 
     public function render()
     {
-        return view('monologues::models.plays.frontend.show')
+        return view('monologues::models.plays.show')
             ->extends('monologues::layouts.monologues');
     }
 }

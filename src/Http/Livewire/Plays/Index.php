@@ -1,11 +1,12 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire\Plays\Frontend;
+namespace Astrogoat\Monologues\Http\Livewire\Plays;
 
+use Helix\Lego\LegoManager;
+use Astrogoat\Monologues\Models\Play;
 use Astrogoat\Monologues\Models\Genre;
 use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Models\Monologue;
-use Astrogoat\Monologues\Models\Play;
 use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
 
 class Index extends BaseIndex
@@ -57,8 +58,12 @@ class Index extends BaseIndex
 
     public function render()
     {
-        return view('monologues::models.plays.frontend.index', [
+        $layout = app(LegoManager::class)->isBackendRoute()
+            ? 'lego::layouts.lego'
+            : 'monologues::layouts.monologues';
+
+        return view('monologues::models.plays.index', [
             'models' => $this->getModels(),
-        ])->extends('monologues::layouts.monologues')->section('content');
+        ])->extends($layout)->section('content');
     }
 }

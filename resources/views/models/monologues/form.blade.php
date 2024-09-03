@@ -1,6 +1,7 @@
 @php
     use Helix\Fabrick\Icon;
     use Illuminate\Support\Str;
+    use Astrogoat\Monologues\Enums\CharacterSex;
     use Helix\Lego\Enums\AppAsset;
 @endphp
 
@@ -12,6 +13,7 @@
         ['title' => $model->play->title, 'url' => route('lego.monologues.plays.edit', $this->model->play)],
         ['title' => $this->displayTitle(30)],
     ]"
+    description="{{ $model->play->title }} by {{ $model->play->playwright }} ({{ $model->play->published_year ?: '?' }})"
     x-data=""
     x-on:keydown.meta.s.window.prevent="$wire.call('save')" {{-- For Mac --}}
     x-on:keydown.ctrl.s.window.prevent="$wire.call('save')" {{-- For PC  --}}
@@ -38,8 +40,8 @@
     @endif
 
     <x-fab::layouts.main-with-aside>
-        <x-fab::layouts.panel title="Character Details">
-            <div class="monologues-grid monologues-grid-cols-2 monologues-gap-3">
+        <x-fab::layouts.panel title="Play Specified Character Details">
+            <div class="monologues-grid monologues-grid-cols-3 monologues-gap-3">
                 <x-fab::forms.input
                     name="model.character"
                     label="Name"
@@ -51,6 +53,17 @@
                     label="Age"
                     wire:model="model.age"
                 />
+
+                <x-fab::forms.select
+                    name="model.sex"
+                    label="Sex"
+                    wire:model="model.sex"
+                >
+                    <option>-- Select sex --</option>
+                    @foreach(CharacterSex::cases() as $sex)
+                        <option value="{{ $sex->value }}">{{ $sex->value }}</option>
+                    @endforeach
+                </x-fab::forms.select>
             </div>
         </x-fab::layouts.panel>
 
@@ -62,9 +75,15 @@
             />
 
             <x-fab::forms.textarea
-                name="model.excerpt"
-                label="Excerpt"
-                wire:model="model.excerpt"
+                name="model.first_line"
+                label="First lines of monologue"
+                wire:model="model.first_line"
+            />
+
+            <x-fab::forms.textarea
+                name="model.last_line"
+                label="Last lines of monologue"
+                wire:model="model.last_line"
             />
 
             <x-fab::forms.textarea
@@ -73,24 +92,6 @@
                 wire:model="model.text"
                 rows="10"
             />
-        </x-fab::layouts.panel>
-
-        <x-fab::layouts.panel>
-            <div class="monologues-flex monologues-flex-col monologues-text-sm monologues-leading-6 monologues-text-gray-500">
-                <div class="monologues-text-lg monologues-font-medium monologues-text-gray-900">
-                    <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">
-                        {{ $model->play->title }}
-                    </a>
-                </div>
-                <div>by {{ $model->play->playwright }}</div>
-                @if($model->play->published_year)
-                    <div>Published in {{ $model->play->published_year }}</div>
-                @endif
-                <div>{{ $model->play->type }}</div>
-                <div class="monologues-underline monologues-mt-4">
-                    <a href="{{ route('lego.monologues.plays.edit', $model->play) }}">Edit Play</a>
-                </div>
-            </div>
         </x-fab::layouts.panel>
 
         <x-slot name="aside">

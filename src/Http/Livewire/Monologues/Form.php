@@ -1,19 +1,19 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire\Monologues\Backend;
+namespace Astrogoat\Monologues\Http\Livewire\Monologues;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Astrogoat\Monologues\Models\Age;
 use Astrogoat\Monologues\Models\Play;
 use Astrogoat\Monologues\Models\Genre;
+use Astrogoat\Monologues\Models\Identity;
 use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Enums\CharacterSex;
 use Helix\Lego\Services\SyncableRelationship;
-use Astrogoat\Monologues\Models\Age;
-use Astrogoat\Monologues\Models\Identity;
+use Astrogoat\Monologues\Models\GenderIdentity;
 use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
 use Helix\Lego\Http\Livewire\Traits\SyncsRelationships;
-use Astrogoat\Monologues\Models\GenderIdentity;
 
 class Form extends BaseForm
 {
@@ -56,7 +56,8 @@ class Form extends BaseForm
             'model.identity' => 'nullable|string',
             'model.age' => 'nullable|string',
             'model.description' => 'nullable|string',
-            'model.excerpt' => 'nullable|string',
+            'model.first_line' => 'nullable|string',
+            'model.last_line' => 'nullable|string',
             'model.text' => 'nullable|string',
         ];
     }
@@ -69,7 +70,7 @@ class Form extends BaseForm
     public function displayTitle(int $limit = 50): string
     {
         $title = match (true) {
-            filled($this->model->excerpt) => Str::of($this->model->excerpt)->remove('[First line]')->prepend($this->model->character . ': '),
+            filled($this->model->first_line) => Str::of($this->model->first_line)->prepend($this->model->character . ': '),
             filled($this->model->description) => $this->model->description,
             filled($this->model->text) => $this->model->text,
             default => '[Untitled]',
@@ -107,6 +108,6 @@ class Form extends BaseForm
 
     public function view(): string
     {
-        return 'monologues::models.monologues.backend.form';
+        return 'monologues::models.monologues.form';
     }
 }

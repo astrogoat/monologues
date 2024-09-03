@@ -2,7 +2,6 @@
 
 namespace Astrogoat\Monologues\Enums;
 
-/** @deprecated  */
 enum CharacterSex: string
 {
     case M = 'M';

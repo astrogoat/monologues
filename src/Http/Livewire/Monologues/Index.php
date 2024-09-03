@@ -1,16 +1,15 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire\Monologues\Frontend;
+namespace Astrogoat\Monologues\Http\Livewire\Monologues;
 
-use Illuminate\Support\Arr;
+use Helix\Lego\LegoManager;
+use Illuminate\Support\Collection;
 use Astrogoat\Monologues\Models\Age;
+use Illuminate\Database\Eloquent\Builder;
 use Astrogoat\Monologues\Models\Identity;
-use Astrogoat\Monologues\Enums\CharacterSex;
 use Astrogoat\Monologues\Models\Monologue;
 use Astrogoat\Monologues\Models\GenderIdentity;
 use Helix\Lego\Http\Livewire\Models\Index as BaseIndex;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 class Index extends BaseIndex
 {
@@ -106,8 +105,12 @@ class Index extends BaseIndex
 
     public function render()
     {
-        return view('monologues::models.monologues.frontend.index', [
+        $layout = app(LegoManager::class)->isBackendRoute()
+            ? 'lego::layouts.lego'
+            : 'monologues::layouts.monologues';
+
+        return view('monologues::models.monologues.index', [
             'models' => $this->getModels(),
-        ])->extends('monologues::layouts.monologues')->section('content');
+        ])->extends($layout)->section('content');
     }
 }

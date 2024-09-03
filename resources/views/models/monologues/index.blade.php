@@ -1,4 +1,11 @@
-@php use Illuminate\Support\Str; @endphp
+@php
+    use Illuminate\Support\Str;
+    use Helix\Lego\LegoManager;
+
+    $showRoute = app(LegoManager::class)->isBackendRoute()
+        ? 'lego.monologues.edit'
+        : 'monologue-database.monologues.show';
+@endphp
 
 <x-fab::layouts.page
     title="Monologues"
@@ -19,19 +26,19 @@
             <x-fab::lists.table.row :odd="$loop->odd">
                 @if($this->shouldShowColumn('play_id'))
                     <x-fab::lists.table.column primary text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->play->title }}</a>
+                        <a href="{{ route($showRoute, $monologue) }}">{{ $monologue->play->title }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('playwright'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->play->playwright }}</a>
+                        <a href="{{ route($showRoute, $monologue) }}">{{ $monologue->play->playwright }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('character'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
+                        <a href="{{ route($showRoute, $monologue) }}">{{ $monologue->character }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
@@ -66,7 +73,7 @@
                 @endif
 
                 <x-fab::lists.table.column align="right" slim>
-                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">View</a>
+                    <a href="{{ route($showRoute, $monologue) }}">View</a>
                 </x-fab::lists.table.column>
 
             </x-fab::lists.table.row>

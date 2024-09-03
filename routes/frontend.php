@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Astrogoat\Monologues\Settings\MonologuesSettings;
 use Astrogoat\Monologues\Http\Controllers\CheckoutController;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Frontend\Show as MonologuesShow;
-use Astrogoat\Monologues\Http\Livewire\Plays\Frontend\Show as PlaysShow;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Frontend\Index as MonologuesIndex;
-use Astrogoat\Monologues\Http\Livewire\Plays\Frontend\Index as PlaysIndex;
+use Astrogoat\Monologues\Http\Livewire\Plays\Show as PlaysShow;
+use Astrogoat\Monologues\Http\Livewire\Plays\Index as PlaysIndex;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Show as MonologuesShow;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Index as MonologuesIndex;
 
 Route::group([
     'as' => 'monologue-database.',

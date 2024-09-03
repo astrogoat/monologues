@@ -1,9 +1,25 @@
-@php use Astrogoat\Monologues\Models\Play; @endphp
+@php
+    use Astrogoat\Monologues\Models\Play;
+    use Helix\Lego\LegoManager;
+
+    $showRoute = app(LegoManager::class)->isBackendRoute()
+        ? 'lego.monologues.plays.edit'
+        : 'monologue-database.plays.show';
+@endphp
+
 <x-fab::layouts.page
     title="Plays"
     x-data="{ showColumnFilters: true }"
 >
     @include('lego::models._includes.indexes.filters')
+
+    @if(app(LegoManager::class)->isBackendRoute())
+        <x-slot name="actions">
+            <a href="{{ route('lego.monologues.plays.create') }}">
+                <x-fab::elements.button>Add new play</x-fab::elements.button>
+            </a>
+        </x-slot>
+    @endif
 
     <x-fab::lists.table>
         <x-slot name="headers">
@@ -18,25 +34,25 @@
             <x-fab::lists.table.row :odd="$loop->odd">
                 @if($this->shouldShowColumn('title'))
                     <x-fab::lists.table.column primary text-wrap>
-                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->title }}</a>
+                        <a href="{{ route($showRoute, $play) }}">{{ $play->title }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('playwright'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->playwright }}</a>
+                        <a href="{{ route($showRoute, $play) }}">{{ $play->playwright }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('published_year'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->published_year }}</a>
+                        <a href="{{ route($showRoute, $play) }}">{{ $play->published_year }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
                 @if($this->shouldShowColumn('monologues_count'))
                     <x-fab::lists.table.column text-wrap>
-                        <a href="{{ route('monologue-database.plays.show', $play) }}">{{ $play->monologues()->forUser(auth()->user())->count() }}</a>
+                        <a href="{{ route($showRoute, $play) }}">{{ $play->monologues()->forUser(auth()->user())->count() }}</a>
                     </x-fab::lists.table.column>
                 @endif
 
@@ -51,7 +67,7 @@
                 @endif
 
                 <x-fab::lists.table.column align="right" slim>
-                    <a href="{{ route('monologue-database.plays.show', $play) }}">View</a>
+                    <a href="{{ route($showRoute, $play) }}">View</a>
                 </x-fab::lists.table.column>
 
             </x-fab::lists.table.row>

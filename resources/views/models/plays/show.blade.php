@@ -18,13 +18,14 @@
             <x-fab::lists.table.header>Age</x-fab::lists.table.header>
             <x-fab::lists.table.header>Identity</x-fab::lists.table.header>
         </x-slot>
+
         @foreach($play->monologues()->paginate(15) as $monologue)
             <x-fab::lists.table.row :odd="$loop->odd">
                 <x-fab::lists.table.column primary>
                     <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ $monologue->character }}</a>
                 </x-fab::lists.table.column>
                 <x-fab::lists.table.column>
-                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ Str::limit($monologue->excerptsFirstLine, 40) }}</a>
+                    <a href="{{ route('monologue-database.monologues.show', $monologue) }}">{{ Str::limit($monologue->first_line, 40) }}</a>
                 </x-fab::lists.table.column>
                 <x-fab::lists.table.column text-wrap>
                     @foreach($monologue->genderIdentities as $gender)

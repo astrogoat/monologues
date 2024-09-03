@@ -66,14 +66,14 @@
                     <x-fab::lists.two-column.column title="First Line">
                         <x-slot:description class="monologues-whitespace-normal">
                             <div class="fab-text-gray-700">
-                                {!! nl2br($monologue->excerptsFirstLine) !!}
+                                {!! nl2br($monologue->first_line) !!}
                             </div>
                         </x-slot:description>
                     </x-fab::lists.two-column.column>
                     <x-fab::lists.two-column.column title="Last Line">
                         <x-slot:description class="monologues-whitespace-normal">
                             <div class="fab-text-gray-700">
-                                {!! nl2br($monologue->excerptsLastLine) !!}
+                                {!! nl2br($monologue->last_line) !!}
                             </div>
                         </x-slot:description>
                     </x-fab::lists.two-column.column>
@@ -128,6 +128,24 @@
                 </x-fab::lists.two-column.column>
             </x-fab::lists.two-column>
 
+            @if($monologue->getAttribute('sex') || $monologue->getAttribute('age'))
+                <x-fab::lists.two-column title="Play Specified Character Information">
+                    @if($monologue->getAttribute('sex'))
+                        <x-fab::lists.two-column.column
+                            title="Sex"
+                            :description="$monologue->sex->fullName()"
+                        />
+                    @endif
+
+                    @if($monologue->getAttribute('age'))
+                        <x-fab::lists.two-column.column
+                            title="Age"
+                            :description="$monologue->age"
+                        />
+                    @endif
+                </x-fab::lists.two-column>
+            @endif
+
             <x-fab::lists.two-column title="Where to Find the Play">
                 @foreach($monologue->play->playSources as $source)
                     <x-fab::lists.two-column.column
@@ -161,8 +179,7 @@
                 <div class="overflow-hidden rounded-full bg-gray-200">
                     <div class="h-2 rounded-full bg-indigo-600" style="width: {{ $monologue->length()->progressBarWidth() }}%"></div>
                 </div>
-                <div class="monologues-text-gray-700 monologues-text-sm monologues-flex monologues-justify-between">
-{{--                    <span>{{ $monologue->length()->value }} length.</span>--}}
+                <div class="monologues-text-gray-500 monologues-text-sm monologues-flex monologues-justify-between">
                     <span>{{ $monologue->wordCount }} words</span>
                     <span>{{ $monologue->characterCount }} characters</span>
                 </div>

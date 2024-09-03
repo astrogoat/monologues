@@ -1,16 +1,14 @@
 <?php
 
-namespace Astrogoat\Monologues\Http\Livewire\Plays\Backend;
+namespace Astrogoat\Monologues\Http\Livewire\Plays;
 
+use Helix\Lego\Rules\SlugRule;
 use Astrogoat\Monologues\Models\Play;
-use Astrogoat\Monologues\Models\Genre;
 use Astrogoat\Monologues\Models\PlaySource;
 use Helix\Lego\Services\SyncableRelationship;
 use Helix\Lego\Http\Livewire\Models\Form as BaseForm;
-use Helix\Lego\Rules\SlugRule;
 use Helix\Lego\Http\Livewire\Traits\SyncsRelationships;
 use Helix\Lego\Http\Livewire\Traits\RequireConfirmation;
-use Astrogoat\Monologues\Models\GenderIdentity;
 
 class Form extends BaseForm
 {
@@ -66,6 +64,6 @@ class Form extends BaseForm
 
     public function view(): string
     {
-        return 'monologues::models.plays.backend.form';
+        return 'monologues::models.plays.form';
     }
 }

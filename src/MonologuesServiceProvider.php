@@ -2,30 +2,30 @@
 
 namespace Astrogoat\Monologues;
 
-use Astrogoat\Cashier\Http\Middleware\Subscribed;
-use Astrogoat\Monologues\Enums\Permission;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Backend\Form as BackendMonologuesForm;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Backend\Index as BackendMonologuesIndex;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Frontend\Index as FrontendMonologuesIndex;
-use Astrogoat\Monologues\Http\Livewire\Monologues\Frontend\Show as FrontendMonologuesShow;
-use Astrogoat\Monologues\Http\Livewire\Plays\Backend\Form as BackendPlaysForm;
-use Astrogoat\Monologues\Http\Livewire\Plays\Backend\Index as BackendPlaysIndex;
-use Astrogoat\Monologues\Http\Livewire\Plays\Frontend\Index as FrontendPlaysIndex;
-use Astrogoat\Monologues\Models\Monologue;
-use Astrogoat\Monologues\Providers\RouteServiceProvider;
-use Astrogoat\Monologues\Settings\MonologuesSettings;
+use Livewire\Livewire;
 use Helix\Fabrick\Icon;
 use Helix\Lego\Apps\App;
-use Helix\Lego\Apps\AppPackageServiceProvider;
-use Helix\Lego\Http\Controllers\Auth\RegisteredUserController;
-use Helix\Lego\Menus\Lego\Group;
-use Helix\Lego\Menus\Lego\Link;
 use Helix\Lego\Menus\Menu;
+use Helix\Lego\Menus\Lego\Link;
+use Helix\Lego\Menus\Lego\Group;
 use Helix\Lego\Permissions\Role;
 use Illuminate\Support\Facades\Event;
-use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
+use Astrogoat\Monologues\Enums\Permission;
+use Astrogoat\Monologues\Models\Monologue;
+use Helix\Lego\Apps\AppPackageServiceProvider;
 use Stancl\Tenancy\Events\TenancyBootstrapped;
+use Astrogoat\Cashier\Http\Middleware\Subscribed;
+use Astrogoat\Monologues\Settings\MonologuesSettings;
+use Astrogoat\Monologues\Providers\RouteServiceProvider;
+use Helix\Lego\Http\Controllers\Auth\RegisteredUserController;
+use Astrogoat\Monologues\Http\Livewire\Plays\Form as BackendPlaysForm;
+use Astrogoat\Monologues\Http\Livewire\Plays\Index as FrontendPlaysIndex;
+use Astrogoat\Monologues\Http\Livewire\Plays\Backend\Index as BackendPlaysIndex;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Form as BackendMonologuesForm;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Show as FrontendMonologuesShow;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Index as FrontendMonologuesIndex;
+use Astrogoat\Monologues\Http\Livewire\Monologues\Backend\Index as BackendMonologuesIndex;
 
 class MonologuesServiceProvider extends AppPackageServiceProvider
 {
