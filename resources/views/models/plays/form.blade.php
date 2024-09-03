@@ -63,6 +63,14 @@
             </div>
         </x-fab::layouts.panel>
 
+        <x-fab::layouts.panel title="Description">
+            <x-fab::forms.textarea
+                name="model.description"
+                label="Play Description/Synopsis"
+                wire:model="model.description"
+            />
+        </x-fab::layouts.panel>
+
         <x-fab::layouts.panel
             title="Where to find"
         >
@@ -97,19 +105,23 @@
                     </x-fab::elements.button>
                 </x-slot>
             @endif
+
             <x-slot name="headers">
                 <x-fab::lists.table.header>Character</x-fab::lists.table.header>
                 <x-fab::lists.table.header>First line</x-fab::lists.table.header>
                 <x-fab::lists.table.header :hidden="true"></x-fab::lists.table.header>
             </x-slot>
+
             @foreach($this->model->monologues()->paginate(15) as $monologue)
                 <x-fab::lists.table.row :odd="$loop->odd">
                     <x-fab::lists.table.column primary>
                         <a href="{{ route('lego.monologues.edit', [$monologue]) }}">{{ $monologue->character }}</a>
                     </x-fab::lists.table.column>
+
                     <x-fab::lists.table.column>
                         <a href="{{ route('lego.monologues.edit', [$monologue]) }}">{{ Str::limit($monologue->first_line, 60) }}</a>
                     </x-fab::lists.table.column>
+
                     <x-fab::lists.table.column align="right">
                         <x-fab::elements.button size="xs">
                             <a href="{{ route('lego.monologues.edit', [$monologue]) }}">Edit</a>

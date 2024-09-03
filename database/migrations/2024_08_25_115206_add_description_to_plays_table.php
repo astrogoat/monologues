@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('plays', function (Blueprint $table) {
-            $table->string('description')->after('published_year');
+            $table->longText('description')->after('published_year');
         });
     }
 

@@ -8,6 +8,12 @@
         @endforeach
     </x-slot>
 
+    @if($play->description)
+        <x-fab::layouts.panel title="Play Description" class="monologues-text-gray-700">
+            {!! nl2br($play->description) !!}
+        </x-fab::layouts.panel>
+    @endif
+
     <x-fab::lists.table
         title="Monologues"
     >

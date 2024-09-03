@@ -52,8 +52,7 @@ class Form extends BaseForm
             'model.slug' => [new SlugRule($this->model)],
             'model.playwright' => 'nullable|string',
             'model.published_year' => 'nullable|numeric',
-            'model.type' => 'required',
-            'model.where_to_find' => 'nullable|string',
+            'model.description' => 'nullable|string',
         ];
     }
 
