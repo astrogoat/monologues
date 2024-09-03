@@ -70,6 +70,12 @@
                         >
                             Plays
                         </a>
+                        <a
+                            href="{{ route('monologue-database.bookmarks.index') }}"
+                            class="{{ currentRouteIs(['monologue-database.bookmarks.index']) ? 'monologues-border-indigo-500' : 'monologues-border-transparent hover:monologues-border-gray-300 hover:monologues-text-gray-700' }} monologues-inline-flex monologues-items-center monologues-border-b-2 monologues-px-1 monologues-pt-1 monologues-text-sm monologues-font-medium monologues-text-gray-500"
+                        >
+                            Bookmarks
+                        </a>
                     </div>
                 </div>
                 <div class="monologues-hidden sm:monologues-ml-6 sm:monologues-flex sm:monologues-items-center">

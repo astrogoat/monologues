@@ -14,9 +14,11 @@
         @endforeach
     </x-slot>
     <x-slot name="actions">
-{{--        <x-fab::elements.button class="monologues-mr-4" wire:click="bookmark">--}}
-{{--            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="monologues-w-6 monologues-h-6"><path d="M6 7.8c0-1.9.03-2.36.21-2.71 .19-.38.49-.69.87-.88 .35-.19.8-.22 2.7-.22h4.4c1.89 0 2.35.03 2.7.21 .37.19.68.49.87.87 .18.35.21.8.21 2.7v13.2l1.49-.87 -7-4c-.31-.18-.69-.18-1 0l-7 4 1.49.86V7.76Zm-2 0V21c0 .76.82 1.24 1.49.86l7-4h-1l7 4c.66.38 1.49-.11 1.49-.87V7.79c0-2.31-.05-2.85-.44-3.62 -.39-.76-1-1.37-1.75-1.75 -.77-.4-1.32-.44-3.62-.44h-4.4c-2.31 0-2.85.04-3.62.43 -.76.38-1.37.99-1.75 1.74 -.4.76-.44 1.31-.44 3.61Z"/></svg>--}}
-{{--        </x-fab::elements.button>--}}
+        <x-fab::elements.button class="monologues-mr-4" wire:click="bookmark">
+            <svg xmlns="http://www.w3.org/2000/svg" class="monologues-w-6 monologues-h-6" fill="{{ $this->hasBeenBookmarked() ? 'currentColor' : 'none' }}" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+        </x-fab::elements.button>
 
         <x-fab::elements.button-group size="xs">
             <x-fab::elements.button-group.button

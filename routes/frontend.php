@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Astrogoat\Monologues\Settings\MonologuesSettings;
+use Astrogoat\Monologues\Http\Livewire\Bookmarks\Index as BookmarksIndex;
 use Astrogoat\Monologues\Http\Controllers\CheckoutController;
 use Astrogoat\Monologues\Http\Livewire\Plays\Show as PlaysShow;
 use Astrogoat\Monologues\Http\Livewire\Plays\Index as PlaysIndex;
@@ -51,6 +52,13 @@ Route::group([
         ], function () {
             Route::get('/', PlaysIndex::class)->name('index');
             Route::get('{play:slug}', PlaysShow::class)->name('show');
+        });
+
+        Route::group([
+            'as' => 'bookmarks.',
+            'prefix' => 'bookmarks',
+        ], function () {
+            Route::get('/', BookmarksIndex::class)->name('index');
         });
     });
 });

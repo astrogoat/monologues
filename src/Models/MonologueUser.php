@@ -2,11 +2,11 @@
 
 namespace Astrogoat\Monologues\Models;
 
+use Helix\Lego\Models\User;
+use Helix\Lego\Models\Model;
 use Astrogoat\Monologues\Order;
 use Astrogoat\Monologues\Enums\Role;
 use Astrogoat\Monologues\Scopes\AccessScope;
-use Helix\Lego\Models\Model;
-use Helix\Lego\Models\User;
 use Helix\Lego\Permissions\Role as StrataRole;
 
 class MonologueUser extends Model

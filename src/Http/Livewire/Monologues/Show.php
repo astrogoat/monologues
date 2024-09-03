@@ -4,6 +4,7 @@ namespace Astrogoat\Monologues\Http\Livewire\Monologues;
 
 use Livewire\Component;
 use Astrogoat\Monologues\Models\Monologue;
+use Astrogoat\Monologues\Services\Favorites\Favorites;
 
 class Show extends Component
 {
@@ -58,6 +59,16 @@ class Show extends Component
         }
 
         return $this->redirect(route('monologue-database.monologues.show', $next));
+    }
+
+    public function bookmark()
+    {
+        Favorites::user(auth()->user())->toggle($this->monologue);
+    }
+
+    public function hasBeenBookmarked(): bool
+    {
+        return Favorites::user(auth()->user())->hasFavorited($this->monologue);
     }
 
     public function render()
