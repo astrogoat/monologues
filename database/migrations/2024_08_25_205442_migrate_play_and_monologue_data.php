@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Astrogoat\Monologues\Models\Play;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,6 +14,7 @@ return new class extends Migration {
             $this->convertSexToGenderIdentity($monologue);
             $this->convertIdentities($monologue);
             $this->convertAges($monologue);
+            $this->convertExcerpts($monologue);
         }
 
         foreach (Play::all() as $play) {
@@ -26,17 +28,9 @@ return new class extends Migration {
         });
 
         Schema::table('monologues', function (Blueprint $table) {
-            $table->dropColumn('sex');
-            $table->dropColumn('identity');
             $table->dropColumn('type');
+            $table->dropColumn('excerpt');
         });
-    }
-
-    public function down(): void
-    {
-//        Schema::table('plays', function (Blueprint $table) {
-//            $table->string('where_to_find')->nullable();
-//        });
     }
 
     public function convertSexToGenderIdentity(Monologue $monologue): void
@@ -84,5 +78,26 @@ return new class extends Migration {
         foreach ($play->monologues()->withoutGlobalScopes()->get() as $monologue) {
             $monologue->genres()->firstOrCreate(['name' => $play->type]);
         }
+    }
+
+    public function convertExcerpts(Monologue $monologue): void
+    {
+        $firstLine = Str::of($monologue->excerpt)
+            ->replace(' lines]', ' line]')
+            ->before('[Last line]')
+            ->remove('[First line]')
+            ->trim()
+            ->toString();
+
+        $lastLine = Str::of($monologue->excerpt)
+            ->replace(' lines]', ' line]')
+            ->after('[Last line] ')
+            ->trim()
+            ->toString();
+
+        $monologue->update([
+            'first_line' => $firstLine,
+            'last_line' => $lastLine,
+        ]);
     }
 };
