@@ -26,7 +26,7 @@ class Form extends BaseForm
         }
     }
 
-    public function saving()
+    public function saved()
     {
         $data = collect($this->playSources)->mapWithKeys(function ($url, $sourceId) {
             return [$sourceId => ['url' => $url]];
@@ -50,9 +50,9 @@ class Form extends BaseForm
         return [
             'model.title' => 'required',
             'model.slug' => [new SlugRule($this->model)],
-            'model.playwright' => 'nullable|string',
-            'model.published_year' => 'nullable|numeric',
-            'model.description' => 'nullable|string',
+            'model.playwright' => 'required|string',
+            'model.published_year' => 'required|numeric',
+            'model.description' => 'required|string',
         ];
     }
 

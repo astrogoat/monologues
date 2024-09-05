@@ -56,6 +56,7 @@
                     label="Published Year"
                     wire:model="model.published_year"
                 >
+                    <option>-- Select --</option>
                     @foreach(range(date('Y'), 1900, -1) as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
