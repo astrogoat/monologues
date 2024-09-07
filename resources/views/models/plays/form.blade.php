@@ -36,6 +36,8 @@
         </x-slot>
     @endif
 
+    <x-lego::feedback.errors />
+
     <x-fab::layouts.main-with-aside>
         <x-fab::layouts.panel title="Play Details">
             <div class="monologues-grid monologues-grid-cols-3 monologues-gap-3">
