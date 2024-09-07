@@ -107,4 +107,9 @@ class Monologue extends Model
     {
         return MonologueLength::fromMonologue($this);
     }
+
+    public function getShowRoute(array $parameters = []): string
+    {
+        return route('monologue-database.monologues.show', $this);
+    }
 }
