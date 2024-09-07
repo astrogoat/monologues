@@ -1,4 +1,7 @@
-@php use Illuminate\Support\Str; @endphp
+@php
+    use Illuminate\Support\Str;
+    use Astrogoat\Monologues\Enums\CharacterSex;
+@endphp
 <x-fab::layouts.page>
     <x-slot:title>
         <a href="{{ route('monologue-database.plays.show', $monologue->play) }}">
@@ -130,9 +133,9 @@
                 </x-fab::lists.two-column.column>
             </x-fab::lists.two-column>
 
-            @if($monologue->getAttribute('sex') || $monologue->getAttribute('age'))
+            @if(($monologue->getAttribute('sex') && $monologue->getAttribute('sex') !== CharacterSex::UNSPECIFIED) || $monologue->getAttribute('age'))
                 <x-fab::lists.two-column title="Play Specified Character Information">
-                    @if($monologue->getAttribute('sex'))
+                    @if($monologue->getAttribute('sex') && $monologue->getAttribute('sex') !== CharacterSex::UNSPECIFIED)
                         <x-fab::lists.two-column.column
                             title="Sex"
                             :description="$monologue->sex->fullName()"
