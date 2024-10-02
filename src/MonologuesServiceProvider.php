@@ -18,6 +18,7 @@ use Stancl\Tenancy\Events\TenancyBootstrapped;
 use Astrogoat\Cashier\Http\Middleware\Subscribed;
 use Astrogoat\Monologues\Settings\MonologuesSettings;
 use Astrogoat\Monologues\Providers\RouteServiceProvider;
+use Helix\Lego\Providers\RouteServiceProvider as StrataRouteServiceProvider;
 use Helix\Lego\Http\Controllers\Auth\RegisteredUserController;
 use Astrogoat\Monologues\Http\Livewire\Plays\Form as BackendPlaysForm;
 use Astrogoat\Monologues\Http\Livewire\Plays\Index as FrontendPlaysIndex;
@@ -31,6 +32,7 @@ class MonologuesServiceProvider extends AppPackageServiceProvider
 {
     public function registerApp(App $app): App
     {
+        StrataRouteServiceProvider::$home = '/app';
         Subscribed::$notCustomerRoute = 'monologues';
 
         return $app
