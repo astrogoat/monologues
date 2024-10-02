@@ -18,7 +18,7 @@ class HasDatabaseAccess
         if (! MonologueUser::wrap($user)->hasDatabaseAccess()) {
             $settings = resolve(MonologuesSettings::class);
 
-            return redirect($settings->getLandingPageModel()->getShowRoute());
+            return redirect(route('monologue-database.checkout', resolve(MonologuesSettings::class)->primary_price_id));
         }
 
         return $next($request);
