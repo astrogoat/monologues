@@ -26,7 +26,6 @@
     @endif
 
     <script src="{{ mix('strata.js', 'vendor/strata') }}" defer></script>
-    <script src="{{ mix('darkmode.js', 'vendor/fabrick') }}"></script>
     <script src="{{ mix('fabrick.js', 'vendor/fabrick') }}" defer></script>
 </head>
 <body class="monologues-h-full">
