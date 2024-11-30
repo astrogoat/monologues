@@ -28,6 +28,7 @@ class CheckoutController
             'metadata' => [
                 'order_id' => $order->id,
             ],
+            'allow_promotion_codes' => true,
         ]);
     }
 
