@@ -84,7 +84,13 @@ class MonologuesServiceProvider extends AppPackageServiceProvider
     {
         if (! $this->app->runningInConsole()) {
             Event::listen(TenancyBootstrapped::class, function (TenancyBootstrapped $event) {
-                RegisteredUserController::$redirectTo = route('monologue-database.checkout', resolve(MonologuesSettings::class)->primary_price_id);
+                RegisteredUserController::$redirectTo = function () {
+                    if (session()->has('sign-up-price')) {
+                        return route('monologue-database.checkout', ['price' => session()->get('sign-up-price')]);
+                    }
+
+                    return resolve(MonologuesSettings::class)->getPricingPageModel()?->getShowRoute() ?? '';
+                };
             });
         }
 

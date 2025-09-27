@@ -16,6 +16,10 @@ Route::group([
     Route::group([
         'prefix' => 'checkout',
     ], function () {
+        Route::get('/', [CheckoutController::class, 'prices'])
+            ->middleware(['monologue-database-auth'])
+            ->name('checkout.prices');
+
         Route::get('success', [CheckoutController::class, 'success'])
             ->name('checkout.success');
 

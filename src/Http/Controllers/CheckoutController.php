@@ -14,8 +14,15 @@ use Astrogoat\Monologues\Settings\MonologuesSettings;
 
 class CheckoutController
 {
-    public function checkout(Request $request, Price $price)
+    public function prices()
     {
+        return redirect(app(MonologuesSettings::class)->getPricingPageModel()->getShowRoute());
+    }
+
+    public function checkout(Request $request, $price)
+    {
+        $price = Price::where('stripe_id', $price)->firstOrFail();
+
         $order = Order::create([
             'user_id' => auth()->user()->id,
             'price_ids' => [$price->stripe_id],
@@ -23,6 +30,7 @@ class CheckoutController
         ]);
 
         return BillableUser::fromUser($request->user())->checkout($order->price_ids, [
+            'mode' => $price->isRecurring() ? 'subscription' : 'payment',
             'success_url' => route('monologue-database.checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => resolve(MonologuesSettings::class)->getLandingPageModel()->getShowRoute(),
             'metadata' => [

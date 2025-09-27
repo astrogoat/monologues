@@ -12,22 +12,34 @@ use Illuminate\Validation\Rule;
 class MonologuesSettings extends AppSettings
 {
     public string $landing_page;
+    public string $pricing_page;
     public string $primary_price_id;
 
     public function rules(): array
     {
         return [
             'landing_page' => Rule::requiredIf($this->enabled === true),
+            'pricing_page' => Rule::requiredIf($this->enabled === true),
             'primary_price_id' => Rule::requiredIf($this->enabled === true),
         ];
     }
 
-    public function landingPageOptions()
+    public function landingPageOptions(): array
+    {
+        return $this->pages('landing');
+    }
+
+    public function pricingPageOptions(): array
+    {
+        return $this->pages('pricing');
+    }
+
+    protected function pages(string $model): array
     {
         $strata = app('lego');
 
         $publishableModels = [
-            'Select your landing pages' => ['' => '-- No landing page --'],
+            "Select your {$model} page" => ['' => "-- No {$model} page --"],
         ];
 
         foreach ($strata->getPublishables() as $publishable) {
@@ -51,6 +63,18 @@ class MonologuesSettings extends AppSettings
 
         $model = Str::before($this->landing_page, ':');
         $modelId = Str::after($this->landing_page, ':');
+
+        return $model::find($modelId);
+    }
+
+    public function getPricingPageModel(): Model|null
+    {
+        if (! $this->pricing_page) {
+            return null;
+        }
+
+        $model = Str::before($this->pricing_page, ':');
+        $modelId = Str::after($this->pricing_page, ':');
 
         return $model::find($modelId);
     }

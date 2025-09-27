@@ -16,9 +16,11 @@ class HasDatabaseAccess
         }
 
         if (! MonologueUser::wrap($user)->hasDatabaseAccess()) {
-            $settings = resolve(MonologuesSettings::class);
+            if (session()->has('sign-up-price')) {
+                return redirect(route('monologue-database.checkout', ['price' => session()->get('sign-up-price')]));
+            }
 
-            return redirect(route('monologue-database.checkout', resolve(MonologuesSettings::class)->primary_price_id));
+            return redirect(app(MonologuesSettings::class)->getPricingPageModel()->getShowRoute());
         }
 
         return $next($request);
