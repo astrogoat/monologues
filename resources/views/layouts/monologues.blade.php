@@ -118,10 +118,10 @@
                             tabindex="-1"
                         >
                             <!-- Active: "bg-gray-100", Not Active: "" -->
-{{--                            <a href="#"--}}
-{{--                               class="monologues-block monologues-px-4 monologues-py-2 monologues-text-sm monologues-text-gray-700"--}}
-{{--                               role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>--}}
-{{--                            --}}{{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>--}}
+                            <a href="{{ route('billing-portal') }}"
+                               class="monologues-block monologues-px-4 monologues-py-2 monologues-text-sm monologues-text-gray-700"
+                               role="menuitem" tabindex="-1" id="user-menu-item-0">Your Account</a>
+{{--                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>--}}
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Logout</button>

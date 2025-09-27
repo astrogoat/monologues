@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Astrogoat\Cashier\Models\BillableUser;
 use Astrogoat\Monologues\Settings\MonologuesSettings;
 use Astrogoat\Monologues\Http\Livewire\Bookmarks\Index as BookmarksIndex;
 use Astrogoat\Monologues\Http\Controllers\CheckoutController;
@@ -64,5 +66,9 @@ Route::group([
         ], function () {
             Route::get('/', BookmarksIndex::class)->name('index');
         });
+
+        Route::get('/billing-portal', function (Request $request) {
+            return BillableUser::fromUser($request->user())->redirectToBillingPortal();
+        })->name('billing-portal');
     });
 });
