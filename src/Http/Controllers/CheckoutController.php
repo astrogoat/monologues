@@ -29,15 +29,19 @@ class CheckoutController
             'status' => OrderStatus::PENDING,
         ]);
 
-        return BillableUser::fromUser($request->user())->checkout($order->price_ids, [
-            'mode' => $price->isRecurring() ? 'subscription' : 'payment',
-            'success_url' => route('monologue-database.checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => resolve(MonologuesSettings::class)->getLandingPageModel()->getShowRoute(),
-            'metadata' => [
-                'order_id' => $order->id,
-            ],
-            'allow_promotion_codes' => true,
-        ]);
+        try {
+            return BillableUser::fromUser($request->user())->checkout($order->price_ids, [
+                'mode' => $price->isRecurring() ? 'subscription' : 'payment',
+                'success_url' => route('monologue-database.checkout.success').'?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => resolve(MonologuesSettings::class)->getLandingPageModel()->getShowRoute(),
+                'metadata' => [
+                    'order_id' => $order->id,
+                ],
+                'allow_promotion_codes' => true,
+            ]);
+        } catch (\Exception $e) {
+            return redirect(resolve(MonologuesSettings::class)->getPricingPageModel()->getShowRoute());
+        }
     }
 
     public function success(Request $request)

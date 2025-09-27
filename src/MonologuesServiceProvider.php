@@ -43,7 +43,10 @@ class MonologuesServiceProvider extends AppPackageServiceProvider
                 __DIR__ . '/../database/migrations/settings',
             ])
             ->models([Monologue::class])
-            ->roles([Enums\Role::CUSTOMER])
+            ->roles([
+                Enums\Role::CUSTOMER,
+                Enums\Role::PROMOTIONAL,
+            ])
             ->permissions([Permission::ACCESS_MONOLOGUE_DATABASE])
             ->permissionsForRoles([
                 [

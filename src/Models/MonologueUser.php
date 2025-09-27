@@ -3,9 +3,12 @@
 namespace Astrogoat\Monologues\Models;
 
 use Helix\Lego\Models\User;
+use Illuminate\Support\Str;
 use Helix\Lego\Models\Model;
 use Astrogoat\Monologues\Order;
+use Astrogoat\Cashier\Models\Price;
 use Astrogoat\Monologues\Enums\Role;
+use Astrogoat\Cashier\Models\BillableUser;
 use Astrogoat\Monologues\Scopes\AccessScope;
 use Helix\Lego\Permissions\Role as StrataRole;
 
@@ -46,11 +49,23 @@ class MonologueUser extends Model
 
     public function hasDatabaseAccess(): bool
     {
-        if ($this->user->hasAnyRole([StrataRole::ADMIN->value, Role::CUSTOMER->value])) {
+        if ($this->user->hasAnyRole([StrataRole::ADMIN->value, Role::PROMOTIONAL->value])) {
             return true;
         }
 
-        return $this->orders()->completed()->count() >= 1;
+        if (BillableUser::fromUser($this->user)->subscribed()) {
+            return true;
+        }
+
+        foreach ($this->orders()->completed()->get() as $completedOrder) {
+            foreach ($completedOrder->price_ids as $priceId) {
+                if (in_array($priceId, config('monologues.lifetime_access_price_ids', []))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public function monologues()

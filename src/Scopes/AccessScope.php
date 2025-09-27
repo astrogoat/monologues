@@ -2,7 +2,7 @@
 
 namespace Astrogoat\Monologues\Scopes;
 
-use Astrogoat\Monologues\Enums\Permission;
+use Astrogoat\Monologues\Enums\Role;
 use Astrogoat\Monologues\Models\MonologueUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -27,8 +27,8 @@ class AccessScope implements Scope
         $lastOrder = MonologueUser::wrap(auth()->user())->lastOrder;
 
         if (! $lastOrder) {
-            // Overflow valve to give users who haven't placed an order access.
-            if (auth()->user()->hasPermissionTo(Permission::ACCESS_MONOLOGUE_DATABASE->value)) {
+            // Overflow valve to give promotional users, who haven't placed an order, access to all monologues.
+            if (auth()->user()->hasRole(Role::PROMOTIONAL->value)) {
                 // Scope all monologues.
                 return;
             }
@@ -36,7 +36,7 @@ class AccessScope implements Scope
             // Don't scope any monologues.
             $builder->where('id', false);
         } else {
-            // Scope any monologues that was created before the user singed up.
+            // Scope any monologues that were created before the user signed up.
             $builder->where('created_at', '<=', $lastOrder->created_at);
         }
     }
