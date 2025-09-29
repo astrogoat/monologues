@@ -38,6 +38,10 @@ class CheckoutController
                     'order_id' => $order->id,
                 ],
                 'allow_promotion_codes' => true,
+                'consent_collection' => [
+                    'promotions' => 'auto',
+                    'terms_of_service' => 'required',
+                ]
             ]);
         } catch (\Exception $e) {
             return redirect(resolve(MonologuesSettings::class)->getPricingPageModel()->getShowRoute());
